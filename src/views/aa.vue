@@ -1,15 +1,13 @@
 <template>
-    <div>用户</div>
+    
 </template>
 
 <script>
     export default {
-        name: "user"
+        name: "aa"
     }
 </script>
 
-
-<style lang="less" scoped>
-
+<style scoped>
 
 </style>

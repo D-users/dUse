@@ -4,8 +4,6 @@ import Index from './views/index'
 import List from './views/list'
 import Cart from './views/cart'
 import User from './views/user'
-
-
 Vue.use(Router)
 
 export default new Router({
@@ -13,8 +11,6 @@ export default new Router({
     {
       path: '/index',
       name: 'index',
-      component: Index,
-      alis: "/"
     },
     {
       path: '/list',
@@ -32,5 +28,5 @@ export default new Router({
       component: User
     },
   ],
-  mode: history
+
 })
