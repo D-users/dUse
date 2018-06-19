@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 // var goodsRouter = require("./src/goods");
 // app.use("/goods",goodsRouter);
 
-var UserRouter = require("./src/user");
+var UserRouter = require("./sever/user");
 app.use("/user",UserRouter);
 
 app.listen(8888);
