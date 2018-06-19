@@ -1,8 +1,6 @@
 const Router = require("express").Router();
 const mongoose = require("mongoose");
 const querystring = require("querystring");
-
-
 const db = mongoose.connect('mongodb://localhost:27017/dUserBase');//如果没有添加库名，默认链接该MongoDB中的test库
 
 //链接到已经启动的mongodb

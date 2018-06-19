@@ -10,8 +10,6 @@ connection.once('open',function () {
 connection.on('error',function (err) {
     console.error(new Error(err));
 })
-
-
 //设置集合的骨架
 var schema = new mongoose.Schema({
     name:{
