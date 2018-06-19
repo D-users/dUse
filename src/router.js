@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from './views/index'
-import User from './views/user'
+import UserLogin from './views/user/userLogin'
+import UserRegister from './views/user/userRegister'
 import Cart from './views/cart'
 import List from './views/list'
 
@@ -16,9 +17,14 @@ export default new Router({
       alias: "/"
     },
     {
-      path: '/user',
-      name: 'user',
-      component: User
+      path: '/user/login',
+      name: 'userLogin',
+      component: UserLogin
+    },
+    {
+      path: '/user/register',
+      name: 'userRegister',
+      component: UserRegister
     },
     {
       path: '/list',
