@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from './views/goods'
+import Index from './views/index'
 import User from './views/user'
 import Cart from './views/cart'
 import List from './views/list'
