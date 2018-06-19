@@ -35,7 +35,13 @@ var Model = mongoose.model('user',schema);
 Router.post('/add',function (req, res) {
     // var body = req.body;
     console.log(req.body.userId);
-
+if(req.body.userId==""||req.body.pwd==""){
+    res.send({
+        status:0,
+        msg:"用户名或密码不存在"
+    })
+    return ;
+}
 
     console.log(req.path);
     Model.create({userId:req.body.userId,pwd:req.body.pwd},function (err, docs) {
