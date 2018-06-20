@@ -5,6 +5,7 @@ import UserLogin from './views/user/userLogin'
 import UserRegister from './views/user/userRegister'
 import Cart from './views/cart'
 import List from './views/list'
+import ProductClassify from './views/Product/ProductClassify'
 
 Vue.use(Router)
 
@@ -35,7 +36,16 @@ export default new Router({
       path: '/cart',
       name: 'cart',
       component: Cart
-    }
+    },
+      {
+          path: '/Product/ProductClassify',
+          name: 'ProductClassify',
+          component: ProductClassify
+      }
+
+      
+
+
   ],
   mode: "history"
 })
