@@ -1,6 +1,6 @@
 <template>
     <div class="register">
-        <img src="../../assets/img/register.jpg" alt="">
+        <img src="../../assets/img/user/register.jpg" alt="">
         <div class="register-box">
             <ul>
                 <li><div>手机号</div><input type="text" placeholder="请输入手机号" v-model="user"></li>
