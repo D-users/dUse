@@ -4,12 +4,13 @@ const bodyParser = require("body-parser");
 
 
 app.use(bodyParser.urlencoded({extended:false}));
-// var goodsRouter = require("./src/goods");
-// app.use("/goods",goodsRouter);
+ // var goodsRouter = require("./sever/goods");
+ // app.use("/goods",goodsRouter);
 
-  var GoodsListRouter = require("./sever/goodsList1");
+  var GoodsListRouter = require("./sever/goodsList");
    app.use("/goodsList",GoodsListRouter);
  var UserRouter = require("./sever/user");
  app.use("/user",UserRouter);
+
 
 app.listen(8888);

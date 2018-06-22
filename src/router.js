@@ -6,6 +6,7 @@ import UserRegister from './views/user/userRegister'
 import Cart from './views/cart'
 import List from './views/list'
 import ProductClassify from './views/Product/ProductClassify'
+import cymanage from './views/Product/ahhd'
 
 Vue.use(Router)
 
@@ -41,6 +42,12 @@ export default new Router({
           path: '/Product/ProductClassify',
           name: 'ProductClassify',
           component: ProductClassify
+      }
+      ,{
+          path: '/Product/cy',
+          name: 'cymanage',
+          component: cymanage
+
       }
 
       
