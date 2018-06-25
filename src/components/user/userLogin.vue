@@ -3,8 +3,8 @@
         <img src="../../assets/img/user/userlogo.jpg" alt="">
         <div class="login-box">
             <ul>
-                <li><label>用户</label><input type="text" placeholder="请输入手机号或用户名" v-model="user"></li>
-                <li><label>密码</label><input type="password" placeholder="请输入密码" v-model="pwd"></li>
+                <li><label>用户</label><input type="text" placeholder="请输入手机号或用户名" v-model="user" value=""></li>
+                <li><label>密码</label><input type="password" placeholder="请输入密码" v-model="pwd" value=""></li>
                 <li><input type="button" value="登录" class="login-btn" @click="login"></li>
                 <li><a href="/user/register">注册</a><a href="">忘记密码</a></li>
             </ul>
@@ -29,7 +29,7 @@
             ...mapMutations(['setStorage']),
             login(){
                 let formData = this.$qs.stringify({
-                    userId: this.user,
+                    userName: this.user,
                     pwd: this.pwd
                 });
                 this.$http({
@@ -39,7 +39,15 @@
                 }).then(({data})=>{
                     alert(data.msg);
                     if(data.status){
-                        this.$store.commit('setStorage',this.user);
+                        let obj = {
+                            username: data.data.userName,
+                            userId: data.data._id,
+                            phone: data.data.phoneNumber
+                        }
+                        if(data.data.nickname){
+                            obj.setItem(nickname,data.data.nickName);
+                        }
+                        this.$store.commit('setStorage',obj);
                         window.location.replace("/user");
                     }
                 })
@@ -69,12 +77,17 @@
                 &:nth-child(3){
                     border-bottom: none;
                     margin-top: 0.2rem;
+                    input{
+                        margin-left: 0;
+                        border-radius: 0.08rem;
+                    }
                 }
                 input{
                     line-height: 0.8rem;
                     border-style: hidden;
                     font-size: 0.5rem;
                     font-weight: 300;
+                    margin-left: 0.5rem;
                     flex: 1;
                     &.login-btn{
                         width: 100%;

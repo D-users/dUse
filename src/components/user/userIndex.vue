@@ -1,56 +1,59 @@
 <template>
-    <div id="user" v-if="user">
-        <div class="topbar">
-            <a class="user-msg" href="">
-                <img src="../../assets/img/user/user.png" alt="">
-                <div>
-                    <p>{{user}}</p>
-                    <p>尊敬的用户, 您好!</p>
+    <div id="user">
+        <div v-if="username">
+            <div class="topbar">
+                <a class="user-msg" href="/user/personalMsg">
+                    <img src="../../assets/img/user/user.png" alt="">
+                    <div>
+                        <p>{{username}}</p>
+                        <p>尊敬的用户,{{username}} 您好!</p>
+                    </div>
+                    <img src="../../assets/img/user/go2.png" alt="">
+                </a>
+                <div class="top-nav">
+                    <a href="/user/recharge"><i></i>充值</a>
+                    <a href="/user/withdrawal"><i></i>提现申请</a>
                 </div>
-                <img src="../../assets/img/user/go2.png" alt="">
-            </a>
-            <div class="top-nav">
-                <a href=""><i></i>充值</a>
-                <a href=""><i></i>提现申请</a>
+            </div>
+            <div class="midbar">
+                <ul class="order-navs">
+                    <li><a href=""><p>0</p><p>待支付</p></a></li>
+                    <li><a href=""><p>0</p><p>待发货</p></a></li>
+                    <li><a href=""><p>0</p><p>待收货</p></a></li>
+                    <li><a href=""><p>0</p><p>待评价</p></a></li>
+                    <li><a href=""><p>0</p><p>退货</p></a></li>
+                </ul>
+                <div class="mid-nav">
+                    <a href=""><i></i>全部订单</a>
+                    <a href=""><i></i>宝贝收藏</a>
+                </div>
+            </div>
+            <div class="fotbar">
+                <ul>
+                    <li><a href="/user/balance"><i></i><p>余额</p></a></li>
+                    <li><router-link :to="{ name: 'GetRecord', params: {type:'recharge'}}"><i></i><p>充值记录</p></router-link></li>
+                    <li><a href=""><i></i><p>公告管理</p></a></li>
+                    <li><a href="/user/Integral"><i></i><p>积分查询</p></a></li>
+                    <li><a href=""><i></i><p>推广管理</p></a></li>
+                    <li><a href="/user/bindCard"><i></i><p>银行卡绑定</p></a></li>
+                    <li><a href=""><i></i><p>手机绑定</p></a></li>
+                    <li><router-link :to="{ name: 'GetRecord', params: {type:'withdrawal'}}"><i></i><p>提现记录</p></router-link></li>
+                    <li><a href=""><i></i><p>优惠券</p></a></li>
+                </ul>
             </div>
         </div>
-        <div class="midbar">
-            <ul class="order-navs">
-                <li><a href=""><p>0</p><p>待支付</p></a></li>
-                <li><a href=""><p>0</p><p>待发货</p></a></li>
-                <li><a href=""><p>0</p><p>待收货</p></a></li>
-                <li><a href=""><p>0</p><p>待评价</p></a></li>
-                <li><a href=""><p>0</p><p>退货</p></a></li>
-            </ul>
-            <div class="mid-nav">
-                <a href=""><i></i>全部订单</a>
-                <a href=""><i></i>宝贝收藏</a>
-            </div>
-        </div>
-        <div class="fotbar">
-            <ul>
-                <li><a href=""><i></i><p>余额</p></a></li>
-                <li><a href=""><i></i><p>充值记录</p></a></li>
-                <li><a href=""><i></i><p>红包返利</p></a></li>
-                <li><a href=""><i></i><p>公告管理</p></a></li>
-                <li><a href=""><i></i><p>积分查询</p></a></li>
-                <li><a href=""><i></i><p>推广管理</p></a></li>
-                <li><a href=""><i></i><p>银行卡绑定</p></a></li>
-                <li><a href=""><i></i><p>手机绑定</p></a></li>
-                <li><a href=""><i></i><p>提现记录</p></a></li>
-                <li><a href=""><i></i><p>优惠券</p></a></li>
-            </ul>
+        <div class="to-login-box" v-else>
+            <a href="/user/login">未登录, 点击前往登陆</a>
         </div>
     </div>
 </template>
 
 <script>
-    import {mapState,mapMutations} from "vuex"
+    import {mapState} from "vuex"
     export default {
         name: "userIndex",
         computed: {
-            ...mapState(['user']),
-            ...mapMutations(['getStorage'])
+            ...mapState(['username'])
         }
     }
 </script>
@@ -198,10 +201,10 @@
                     border-right: 1px solid #e5e5e5;
                     border-bottom: 1px solid #e5e5e5;
                     float: left;
-                    padding: 10px 0;
+                    padding: 0.26667rem 0;
                     width: 25%;
                     box-sizing: border-box;
-                    height: 100px;
+                    height: 2.66667rem;
                     text-align: center;
                     background-color: white;
                     font-size: 0.34667rem;
@@ -229,41 +232,36 @@
                     }
                     &:nth-child(3){
                         i{
-                            background-position: -5.97333rem -5.81333rem;
+                            background-position: -3.30667rem -7.76rem;
                         }
                     }
                     &:nth-child(4){
                         i{
-                            background-position: -3.30667rem -7.76rem;
+                            background-position: -6.13333rem -7.81333rem;
                         }
                     }
                     &:nth-child(5){
                         i{
-                            background-position: -6.13333rem -7.81333rem;
+                            background-position: -5.97333rem -1.97333rem;
                         }
                     }
                     &:nth-child(6){
                         i{
-                            background-position: -5.97333rem -1.97333rem;
+                            background-position: -3.30667rem -9.68rem;
                         }
                     }
                     &:nth-child(7){
                         i{
-                            background-position: -3.30667rem -9.68rem;
-                        }
-                    }
-                    &:nth-child(8){
-                        i{
                             background-position: -3.30667rem -5.86667rem;
                         }
                     }
-                    &:nth-child(9){
+                    &:nth-child(8){
                         i{
                             background-size: 100%;
                             background-image: url("../../assets/img/user/icon-tixian.png");
                         }
                     }
-                    &:nth-child(10){
+                    &:nth-child(9){
                         i{
                             background-size: 100%;
                             background-image: url("../../assets/img/user/icon-ticket.png");
@@ -271,6 +269,14 @@
                         }
                     }
                 }
+            }
+        }
+        .to-login-box{
+            a{
+                font-size: 0.6rem;
+                display: block;
+                text-align: center;
+                margin: 1rem auto;
             }
         }
     }
