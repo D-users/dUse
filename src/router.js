@@ -7,9 +7,18 @@ import ProductClassify from './views/Product/ProductClassify'
 
 //用户模块路由
 import User from './views/user'
-import UserIndex from './views/user/userIndex'
-import UserLogin from './views/user/userLogin'
-import UserRegister from './views/user/userRegister'
+import UserIndex from './components/user/userIndex'
+import UserLogin from './components/user/userLogin'
+import UserRegister from './components/user/userRegister'
+import UserMsg from './components/user/userMsg'
+import Recharge from './components/user/recharge'
+import Withdrawal from './components/user/withdrawal'
+import Balance from './components/user/balance'
+import BindCard from './components/user/bindCard'
+import Integral from './components/user/showIntegral'
+import Address from './components/user/address'
+import NewAddress from './components/user/addAddress'
+import getRecord from './components/user/getRecord'
 
 Vue.use(Router)
 
@@ -26,16 +35,20 @@ export default new Router({
       name: 'user',
       component: User,
       children: [
-          {path:"/user/login",component:UserLogin},
-          {path:"/user/register",component:UserRegister},
-          {path:"/user",component:UserIndex}
+          {path:"login",component:UserLogin},
+          {path:"register",component:UserRegister},
+          {path:"/",component:UserIndex},
+          {path:"personalMsg",component:UserMsg},
+          {path:"recharge",component:Recharge},
+          {path:"withdrawal",component:Withdrawal},
+          {path:"balance",component:Balance},
+          {path:"bindCard",component:BindCard},
+          {path:"Integral",component:Integral},
+          {path:"address",component:Address},
+          {path:"newAddress/:id",name:"EditAddr",component:NewAddress},
+          {path:"getRecord/:type",name:"GetRecord",component:getRecord}
       ]
     },
-    // {
-    //   path: '/user/login',
-    //   name: 'userLogin',
-    //   component:
-    // },
     {
       path: '/user/register',
       name: 'userRegister',

@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import axios from "axios"
 import qs from "qs"
+import $ from "jquery";
 
 Vue.prototype.$http = axios;
 Vue.prototype.$api = "/api";//生产环境打包时, 将其替换为http://localhost:8888/data
