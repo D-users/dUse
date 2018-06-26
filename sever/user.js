@@ -87,10 +87,8 @@ var schema = new mongoose.Schema({
                 type: Number
             },
             Detail: {
-                type:String
+                type: String
             },
-
-
             totalMoney: {
                 type: Number
             },
@@ -1304,22 +1302,21 @@ Router.post("/orderChange", function (req, res) {
     //
     //
     // }
-    if(req.body.id){
+    if (req.body.id) {
 
 
 
 
         //修改
-        Model.update({"order._id":req.body.id},data,function (err, docs) {
+        Model.update({"order._id": req.body.id}, data, function (err, docs) {
 
         })
 
 
-    }else{
+    } else {
         //添加
 
     }
-
 
 
 })
@@ -1404,6 +1401,32 @@ Router.post("/addressRemove", function (req, res) {
 
 })
 
+// Router.post("/orderChange", function (req, res) {
+//
+//     if (req.body.orderId) {
+//         //修改
+//         //  Router.update({"order._id":req.body.orderId},{$set:{"goodsId.$.state":counts},$set:{"goodsId.$.Detail":counts}})
+//
+//
+//     } else {
+//         //添加
+//
+//         Router.update({"order._id": req.body.orderId}, {
+//             $push: {
+//                 order: {
+//                     state: req.body.classId,
+//                     Detail: req.body.Detail,
+//                     totalMoney: req.body.totalMoney,
+//                     orderAddressId: req.body.orderAddressId
+//                 }
+//             }
+//         }, function (req, res) {
+//             console.log(res)
+//
+//         })
+//
+//     }
+// })
 
 
 module.exports = Router;
