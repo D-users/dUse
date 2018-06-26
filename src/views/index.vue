@@ -41,9 +41,6 @@
     // 1. 定义（路由）组件。
     const Index = { template: '#index' };
     export default {
-<<<<<<< HEAD
-        name: "goods"
-=======
         name: "index",
         data(){
             return{
@@ -122,7 +119,6 @@
         //         this.historyxs = false;
         //     }
         }
->>>>>>> pengliu
     }
 
 </script>

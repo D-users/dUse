@@ -4,8 +4,15 @@ import Index from './views/index'
 import Cart from './views/cart'
 import List from './views/list'
 import ProductClassify from './views/Product/ProductClassify'
-import cymanage from './views/Product/ahhd'
 import manage from './views/manage'
+
+//首页路由
+import Home from './views/home/home'
+import Flash from './views/home/flash'
+import Clothes from './views/home/clothes'
+import Daily from './views/home/daily'
+import Cleaning from './views/home/cleaning'
+import Beauty from './views/home/beauty'
 
 //用户模块路由
 import User from './views/user'
@@ -32,7 +39,15 @@ export default new Router({
       path: '/index',
       name: 'index',
       component: Index,
-      alias: "/"
+      alias: "/",
+      children:[
+            {path: '/index/home', name: 'home', component: Home},
+            {path: '/index/flash', name: 'flash', component: Flash},
+            {path: '/index/beauty', name: 'beauty', component: Beauty},
+            {path: '/index/clothes', name: 'clothes', component: Clothes},
+            {path: '/index/daily', name: 'daily', component: Daily},
+            {path: '/index/cleaning', name: 'cleaning', component: Cleaning}
+      ]
     },
     {
       path: '/addGoods',
@@ -75,17 +90,11 @@ export default new Router({
       name: 'cart',
       component: Cart
     },
-      {
-          path: '/Product/ProductClassify',
-          name: 'ProductClassify',
-          component: ProductClassify
-      }
-      ,{
-          path: '/Product/cy',
-          name: 'cymanage',
-          component: cymanage
-
-      }
+    {
+      path: '/Product/ProductClassify',
+      name: 'ProductClassify',
+      component: ProductClassify
+    }
 
       
 
