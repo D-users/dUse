@@ -63,13 +63,11 @@ var schema = new mongoose.Schema({
     }
 
     ]
-
     ,
     phoneNumber: {
-        type: Number
+        type: String
     },
     bankCard: {
-
         cardNumber: {
             type: Number
         },
@@ -82,84 +80,70 @@ var schema = new mongoose.Schema({
 
 
     },
-
-
-    // order: [
-    //     {
-    //         //bePaid 0   beSend 1 beReceive2 beEvaluation3  退货ReturnGood 4
-    //         state: {
-    //             type: Number
-    //         },
-    //         Detail: [
-    //             {
-    //                 goodsid: {
-    //                     type: Number
-    //                 },
-    //                 goodsCount: {
-    //                     type: Number
-    //                 },
-    //                 goodsMoney: {
-    //                     type: Number
-    //                 }
-    //             }
-    //         ],
-    //         totalMoney: {
-    //             type: Number
-    //         },
-    //         orderAddressId: {
-    //             type: Number
-    //         }
-    //
-    //
-    //     }
-    //
-    //
-    // ],
-
-    //收藏
-    collect: [
+    order: [
         {
-            goodsid: {
-                type: String
+            //bePaid 0   beSend 1 beReceive2 beEvaluation3  退货ReturnGood 4
+            state: {
+                type: Number
             },
-            goodsCount: {
+            Detail: {
+                type:String
+
+            },
+
+
+
+            totalMoney: {
+                type: Number
+            },
+            orderAddressId: {
                 type: Number
             }
+
+
         }
 
 
     ],
-    //购物车
-    shoppingCart: [
+    //收藏
+    collect: [
         {
-            goodsid: {
+            classId: {
                 type: String
             },
             goodsCount: {
                 type: Number
             }
         }
-
+    ],
+    //购物车
+    shoppingCart: [
+        {
+            classId: {
+                type: String
+            },
+            goodsCount: {
+                type: Number
+            }
+        }
     ]
     ,
     //地址
     address: [
-
         {
             //收货地址序号
             addressId: {
                 type: Number
             },
-
             //收货人姓名
             receiveName: {
                 type: String
             },
             receivePhoneNumber: {
-                type: Number
+                type: String
             },
             receiveIdCard: {
-                type: Number
+                type: String
             },
             province: {
                 type: String
@@ -177,10 +161,7 @@ var schema = new mongoose.Schema({
             default: {
                 type: Boolean
             }
-
         }
-
-
     ]
 
 }, {
@@ -189,6 +170,7 @@ var schema = new mongoose.Schema({
 
 //创建模型
 var Model = mongoose.model('user', schema);
+
 ////////////////////////////////////////////////////////////注册/////////
 Router.post('/regist', function (req, res) {
     if (!req.body.userName || !req.body.pwd) {
@@ -220,7 +202,7 @@ Router.post('/regist', function (req, res) {
                     rmb: 0
                 },
                 moneyRecord: [],
-                phoneNumber: -1,
+                phoneNumber: "",
                 bankCard: {
                     cardNumber: -1,
                     bank: "",
@@ -282,8 +264,6 @@ Router.post("/login", function (req, res) {
 })
 ////////////////////////////////////////////////////////////钱的查询和修改/////////
 Router.post("/money/Record", function (req, res) {
-
-
     if (req.body.userId == "") {
         return;
     }
@@ -292,13 +272,22 @@ Router.post("/money/Record", function (req, res) {
             console.log(err);
             return;
         }
+        var Record = {
+            rmb: [],
+            han: []
+        }
+        docs[0].moneyRecord.forEach(function (value, index) {
+            if (value.cashType == "rmb") {
+                Record.rmb.push(value)
+            } else {
+                Record.han.push(value)
+            }
+        })
         if (docs.length >= 1) {
             res.send({
                 status: 1,
                 msg: "查询成功",
-                data: {
-                    rmb: docs[0].moneyRecord
-                }
+                data: Record
             })
         } else {
             res.send({
@@ -341,7 +330,7 @@ Router.post("/moneyPay", function (req, res) {
         return;
     }
     Model.find({_id: req.body.userId}, {}, function (err1, docs) {
-        if (  err1 || (docs[0].money.rmb - 0) < Math.abs(req.body.count - 0)) {
+        if (err1 || (docs[0].money.rmb - 0) < Math.abs(req.body.count - 0)) {
             res.send({
                 status: 0,
                 msg: "失败",
@@ -359,7 +348,10 @@ Router.post("/moneyPay", function (req, res) {
             amount: req.body.count
 
         })
-        Model.update({_id: req.body.userId}, {"money.rmb": (docs[0].money.rmb - 0) - Math.abs(req.body.count - 0),moneyRecord:moneyRecordArr}, function (err2, msg) {
+        Model.update({_id: req.body.userId}, {
+            "money.rmb": (docs[0].money.rmb - 0) - Math.abs(req.body.count - 0),
+            moneyRecord: moneyRecordArr
+        }, function (err2, msg) {
             if (err2) {
                 res.send({
                     status: 0,
@@ -485,7 +477,10 @@ Router.post("/hanPay", function (req, res) {
             amount: req.body.count
 
         })
-        Model.update({_id: req.body.userId}, {"money.han": (docs[0].money.han - 0) - Math.abs(req.body.count - 0),moneyRecord:moneyRecordArr}, function (err2, msg) {
+        Model.update({_id: req.body.userId}, {
+            "money.han": (docs[0].money.han - 0) - Math.abs(req.body.count - 0),
+            moneyRecord: moneyRecordArr
+        }, function (err2, msg) {
             if (err2) {
                 res.send({
                     status: 0,
@@ -530,7 +525,10 @@ Router.post("/hanAdd", function (req, res) {
 
         })
 
-        Model.update({_id: req.body.userId}, {"money.han": (docs[0].money.han - 0) + Math.abs(req.body.count - 0),moneyRecord:moneyRecordArr}, function (err2, msg) {
+        Model.update({_id: req.body.userId}, {
+            "money.han": (docs[0].money.han - 0) + Math.abs(req.body.count - 0),
+            moneyRecord: moneyRecordArr
+        }, function (err2, msg) {
             if (err2) {
                 res.send({
                     status: 0,
@@ -659,34 +657,10 @@ Router.post("/bankCardUpdate", function (req, res) {
 
 })
 ////////////////////////////////////////////////////////////收藏/////////
-Router.post("/collect", function (req, res) {
 
-    if (req.body.userId == "") {
-        return;
-    }
-    Model.find({_id: req.body.userId}, {}, function (err, docs) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        if (docs.length >= 1) {
-            res.send({
-                status: 1,
-                msg: "查询成功",
-                data: {collect: docs[0].collect}
-
-            })
-        } else {
-            res.send({
-                status: 0,
-                msg: "错误"
-            })
-        }
-    })
-})
 Router.post("/collectChange", function (req, res) {
 
-    if (!req.body.userId || !req.body.goodsId || !req.body.count) {
+    if (!req.body.userId || !req.body.classId || !req.body.count) {
         res.send({
             status: 0,
             msg: "失败",
@@ -703,7 +677,7 @@ Router.post("/collectChange", function (req, res) {
             //收藏夹里有收藏
             var collectStr = docs[0].collect.map(function (value, index) {
                 return {
-                    goodsid: value.goodsid + "",
+                    classId: value.classId + "",
                     goodsCount: value.goodsCount - 0
 
                 }
@@ -712,7 +686,7 @@ Router.post("/collectChange", function (req, res) {
             var has = false
             collectStr.forEach(function (value, index) {
 
-                if ((value.goodsid + "") == (req.body.goodsId + "")) {
+                if ((value.classId + "") == (req.body.classId + "")) {
 
                     has = true
                     //有这个商品
@@ -770,7 +744,7 @@ Router.post("/collectChange", function (req, res) {
                     return;
                 }
                 collectStr.push({
-                    goodsid: (req.body.goodsId),
+                    classId: (req.body.classId),
                     goodsCount: req.body.count
                 })
 
@@ -801,7 +775,7 @@ Router.post("/collectChange", function (req, res) {
                 Model.update({_id: req.body.userId}, {
                     $push: {
                         collect: {
-                            goodsid: req.body.goodsId,
+                            classId: req.body.classId,
                             goodsCount: req.body.count
                         }
                     }
@@ -832,39 +806,11 @@ Router.post("/collectChange", function (req, res) {
 
 })
 ////////////////////////////////////////////////////////////购物车/////////
-Router.post("/shoppingCart", function (req, res) {
 
-    if (!req.body.userId) {
-        res.send({
-            status: 0,
-            msg: "失败",
-        })
-        return;
-    }
-    Model.find({_id: req.body.userId}, {}, function (err, docs) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        if (docs.length >= 1) {
-            res.send({
-                status: 1,
-                msg: "查询成功",
-                shoppingCart: {collect: docs[0].shoppingCart}
-
-            })
-        } else {
-            res.send({
-                status: 0,
-                msg: "错误"
-            })
-        }
-    })
-})
 Router.post("/shoppingCartChange", function (req, res) {
 
 
-    if (!req.body.userId || !req.body.goodsId || !req.body.count) {
+    if (!req.body.userId || !req.body.classId || !req.body.count) {
         res.send({
             status: 0,
             msg: "失败",
@@ -882,7 +828,7 @@ Router.post("/shoppingCartChange", function (req, res) {
             //收藏夹里有收藏
             var collectStr = docs[0].shoppingCart.map(function (value, index) {
                 return {
-                    goodsid: value.goodsid + "",
+                    classId: value.classId + "",
                     goodsCount: value.goodsCount - 0
 
                 }
@@ -890,9 +836,9 @@ Router.post("/shoppingCartChange", function (req, res) {
             // console.log(collectStr)
             var has = false
             collectStr.forEach(function (value, index) {
-                console.log(value.goodsid, index, req.body.goodsId, "4444444")
-                console.log((value.goodsid + "") == (req.body.goodsId + ""), "777777")
-                if ((value.goodsid + "") == (req.body.goodsId + "")) {
+
+
+                if ((value.classId + "") == (req.body.classId + "")) {
                     console.log("555555")
                     has = true
                     //有这个商品
@@ -950,7 +896,7 @@ Router.post("/shoppingCartChange", function (req, res) {
                     return;
                 }
                 collectStr.push({
-                    goodsid: (req.body.goodsId),
+                    classId: (req.body.classId),
                     goodsCount: req.body.count
                 })
                 console.log(collectStr, "88888888")
@@ -983,7 +929,7 @@ Router.post("/shoppingCartChange", function (req, res) {
                 Model.update({_id: req.body.userId}, {
                     $push: {
                         shoppingCart: {
-                            goodsid: req.body.goodsId,
+                            classId: req.body.classId,
                             goodsCount: req.body.count
                         }
                     }
@@ -1018,6 +964,9 @@ Router.post("/shoppingCartChange", function (req, res) {
 
 })
 ////////////////////////////////////////////////////////////地址/////////
+
+var addressStr = [];
+
 Router.post("/address", function (req, res) {
     if (!req.body.userId) {
         res.send({
@@ -1031,6 +980,8 @@ Router.post("/address", function (req, res) {
             console.log(err);
             return;
         }
+        addressStr = docs[0].address
+        console.log(addressStr)
         if (docs.length >= 1) {
             res.send({
                 status: 1,
@@ -1047,6 +998,7 @@ Router.post("/address", function (req, res) {
     })
 })
 Router.post("/addressChange", function (req, res) {
+    console.log(req.body.userId, req.body.receiveName, req.body.receivePhoneNumber, req.body.receiveIdCard, req.body.province, req.body.city, req.body.area, req.body.DetailedAddress, req.body.addressId)
     if (!req.body.userId || !req.body.receiveName || !req.body.receivePhoneNumber || !req.body.receiveIdCard || !req.body.province || !req.body.city || !req.body.area) {
         res.send({
             status: 0,
@@ -1060,23 +1012,23 @@ Router.post("/addressChange", function (req, res) {
             console.log(err);
             return;
         }
-        var can = false
-        docs[0].address.map(function (value, index) {
-            if (value.addressId == (req.body.addressId - 0)) {
+        if (req.body.addressId) {
 
-                can = true
-            }
-        })
+            var can = false
+            docs[0].address.map(function (value, index) {
+                if (value.addressId == req.body.addressId) {
 
-        if (!can) {
-            res.send({
-                status: 0,
-                msg: "失败",
+                    can = true
+                }
             })
-            return;
+            if (!can) {
+                res.send({
+                    status: 0,
+                    msg: "失败",
+                })
+                return;
+            }
         }
-
-
         var allNumber = 0
         var collectStr = docs[0].address.map(function (value, index) {
             allNumber = value.addressId + 1
@@ -1202,65 +1154,21 @@ Router.post("/addressDefault", function (req, res) {
             console.log(err);
             return;
         }
-        var can = false
-        docs[0].address.map(function (value, index) {
-            if (value.addressId == req.body.addressId) {
 
-                can = true
-            }
-
-
-        })
-
-        if (!can) {
-            res.send({
-                status: 0,
-                msg: "失败",
-            })
-            return;
-        }
         var collectStr = docs[0].address.map(function (value, index) {
-            return {
-                addressId: value.addressId,
-                //收货人姓名
-                receiveName: value.receiveName,
-                receivePhoneNumber: value.receivePhoneNumber,
-                receiveIdCard: value.receiveIdCard,
-                province: value.province,
-                city: value.city,
-                area: value.area,
-                DetailedAddress: value.DetailedAddress,
-                //默认
-                default: false
-
-            }
-        })
-
-        //定向修改
-        var collectStr2 = collectStr.map(function (value, index) {
+            delete value._id
             if (value.addressId == req.body.addressId) {
 
-                return {
-
-                    addressId: value.addressId,
-                    //收货人姓名
-                    receiveName: req.body.receiveName,
-                    receivePhoneNumber: req.body.receivePhoneNumber,
-                    receiveIdCard: req.body.receiveIdCard,
-                    province: req.body.province,
-                    city: req.body.city,
-                    area: req.body.area,
-                    DetailedAddress: req.body.DetailedAddress,
-                    //默认
-                    default: true
-
-                }
+                value.default = true
             } else {
-                return value
+                value.default = false
             }
+
+            return value
         })
 
-        Model.update({_id: req.body.userId}, {address: collectStr2}, function (err2, msg) {
+
+        Model.update({_id: req.body.userId}, {address: collectStr}, function (err2, msg) {
             if (err2) {
                 res.send({
                     status: 0,
@@ -1289,7 +1197,7 @@ Router.post("/addressRemove", function (req, res) {
         })
         return;
     }
-    console.log("1231321")
+
     Model.find({_id: req.body.userId}, {}, function (err, docs) {
         if (err) {
             console.log(err);
@@ -1361,6 +1269,147 @@ Router.post("/addressRemove", function (req, res) {
 
 
 })
+//////////////////////////订单
+Router.post("/address", function (req, res) {
+    if (!req.body.userId) {
+        res.send({
+            status: 0,
+            msg: "失败",
+        })
+        return;
+    }
+    Model.find({_id: req.body.userId}, {}, function (err, docs) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        addressStr = docs[0].address
+        console.log(addressStr)
+        if (docs.length >= 1) {
+            res.send({
+                status: 1,
+                msg: "查询成功",
+                data: {address: docs[0].address}
+
+            })
+        } else {
+            res.send({
+                status: 0,
+                msg: "错误"
+            })
+        }
+    })
+})
+Router.post("/orderChange", function (req, res) {
+
+    var  data={
+        state
+        Detail:[]
+
+
+
+
+    }
+    if(req.body.id){
+
+
+
+
+        //修改
+        Model.update({"order._id":req.body.id},data,function (err, docs) {
+
+        })
+
+
+    }else{
+        //添加
+
+    }
+
+
+
+})
+Router.post("/addressRemove", function (req, res) {
+    if (!req.body.userId || !req.body.addressId) {
+        res.send({
+            status: 0,
+            msg: "请输入完整信息",
+        })
+        return;
+    }
+
+    Model.find({_id: req.body.userId}, {}, function (err, docs) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        var can = false
+        docs[0].address.map(function (value, index) {
+            if (value.addressId == (req.body.addressId - 0)) {
+
+                can = true
+            }
+        })
+
+        if (!can) {
+            res.send({
+                status: 0,
+                msg: "失败",
+            })
+            return;
+        }
+
+        var collectStr = docs[0].address.map(function (value, index) {
+            return {
+                addressId: value.addressId,
+                //收货人姓名
+                receiveName: value.receiveName,
+                receivePhoneNumber: value.receivePhoneNumber,
+                receiveIdCard: value.receiveIdCard,
+                province: value.province,
+                city: value.city,
+                area: value.area,
+                DetailedAddress: value.DetailedAddress,
+                //默认
+                default: value.default
+
+            }
+        })
+
+        //定向删除
+        var removeId = 0
+        var collectStr2 = collectStr.map(function (value, index) {
+            if (value.addressId !== (req.body.addressId - 0)) {
+                console.log(value.addressId, req.body.addressId)
+                return value
+            } else {
+                removeId = index
+            }
+        })
+        collectStr2.splice(removeId, 1)
+
+        Model.update({_id: req.body.userId}, {address: collectStr2}, function (err2, msg) {
+            if (err2) {
+                res.send({
+                    status: 0,
+                    msg: "失败",
+                })
+                return;
+            }
+
+            res.send({
+                status: 1,
+                msg: "成功",
+                data: msg
+            })
+
+        })
+
+    })
+
+
+})
+
 
 
 module.exports = Router;
