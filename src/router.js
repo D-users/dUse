@@ -5,6 +5,7 @@ import Cart from './views/cart'
 import List from './views/list'
 import ProductClassify from './views/Product/ProductClassify'
 import cymanage from './views/Product/ahhd'
+import manage from './views/manage'
 
 //用户模块路由
 import User from './views/user'
@@ -20,6 +21,8 @@ import Integral from './components/user/showIntegral'
 import Address from './components/user/address'
 import NewAddress from './components/user/addAddress'
 import getRecord from './components/user/getRecord'
+import Fav from './components/user/favorites'
+import SetNick from './components/user/setNickname'
 
 Vue.use(Router)
 
@@ -30,6 +33,11 @@ export default new Router({
       name: 'index',
       component: Index,
       alias: "/"
+    },
+    {
+      path: '/addGoods',
+      name: 'manage',
+      component: manage,
     },
     {
       path: '/user',
@@ -47,7 +55,9 @@ export default new Router({
           {path:"Integral",component:Integral},
           {path:"address",component:Address},
           {path:"newAddress/:id",name:"EditAddr",component:NewAddress},
-          {path:"getRecord/:type",name:"GetRecord",component:getRecord}
+          {path:"getRecord/:type",name:"GetRecord",component:getRecord},
+          {path:"favorites",name:"Fav",component:Fav},
+          {path:"setNickname",component:SetNick}
       ]
     },
     {

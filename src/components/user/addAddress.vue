@@ -44,7 +44,7 @@
                     <p v-else>选择区县</p>
                     <div class="lists">
                         <ul>
-                            <li v-for="item in getLists" @click="chooseSelect(item.name)">{{item.name}}</li>
+                            <li v-for="item in getLists" :class="getListClass(item.name)" @click="chooseSelect(item.name)">{{item.name}}</li>
                         </ul>
                     </div>
                 </div>
@@ -194,6 +194,13 @@
                     return "tab"
                 }
             },
+            getListClass(val){
+                if(val == this.province || val == this.city || val == this.area){
+                    return "selected";
+                }else{
+                    return "";
+                }
+            },
             changeIndex(val){
                 this.activeIndex = val;
             },
@@ -224,6 +231,7 @@
                     this.activeIndex = 2;
                 }else{
                     this.area = val;
+                    this.isShow = false;
                 }
             },
             setAddress(){
@@ -238,7 +246,7 @@
                     DetailedAddress: this.detailedAddress
                 };
                 if(this.addressId!=10086){
-                    data.setItem("addressId",this.addressId);
+                    data.addressId = this.addressId;
                 }
                 let formData = this.$qs.stringify(data);
                 this.$http({

@@ -4,8 +4,8 @@
         <div class="content-box">
             <ul>
                 <li><span>头像</span><a href=""><img src="../../assets/img/user/avatar.jpg" alt=""></a></li>
-                <li><p>昵称</p><a href=""><p></p><img src="../../assets/img/user/go-right.png" alt=""></a></li>
-                <li><p>手机号</p><p>{{phone}}</p></li>
+                <li><p>昵称</p><a href="/user/setNickname"><p></p><img src="../../assets/img/user/go-right.png" alt=""></a></li>
+                <li><p>手机号</p><p>{{username}}</p></li>
                 <li><p>修改密码</p><a href=""><img src="../../assets/img/user/go-right.png" alt=""></a></li>
                 <li><p>修改支付密码</p><a href=""><img src="../../assets/img/user/go-right.png" alt=""></a></li>
                 <li><p>收货地址</p><a href="/user/address"><img src="../../assets/img/user/go-right.png" alt=""></a></li>
@@ -24,8 +24,8 @@
             UserHeader
         },
         computed: {
-            ...mapState(['phone']),
-            ...mapMutations(['getNickname','removeAll'])
+            ...mapState(['nickname','username']),
+            ...mapMutations(['removeAll'])
         },
         methods: {
             removeMsg(){

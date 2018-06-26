@@ -6,7 +6,7 @@
                     <img src="../../assets/img/user/user.png" alt="">
                     <div>
                         <p>{{username}}</p>
-                        <p>尊敬的用户,{{username}} 您好!</p>
+                        <p>尊敬的用户,{{nickname}} 您好!</p>
                     </div>
                     <img src="../../assets/img/user/go2.png" alt="">
                 </a>
@@ -25,7 +25,7 @@
                 </ul>
                 <div class="mid-nav">
                     <a href=""><i></i>全部订单</a>
-                    <a href=""><i></i>宝贝收藏</a>
+                    <a href="/user/favorites"><i></i>宝贝收藏</a>
                 </div>
             </div>
             <div class="fotbar">
@@ -53,7 +53,7 @@
     export default {
         name: "userIndex",
         computed: {
-            ...mapState(['username'])
+            ...mapState(['username','nickname'])
         }
     }
 </script>

@@ -3,8 +3,8 @@
         <img src="../../assets/img/user/userlogo.jpg" alt="">
         <div class="login-box">
             <ul>
-                <li><label>用户</label><input type="text" placeholder="请输入手机号或用户名" v-model="user" value=""></li>
-                <li><label>密码</label><input type="password" placeholder="请输入密码" v-model="pwd" value=""></li>
+                <li><p>用户</p><input class="txt" type="text" placeholder="请输入手机号或用户名" v-model="user" value=""></li>
+                <li><p>密码</p><input class="txt" type="password" placeholder="请输入密码" v-model="pwd" value=""></li>
                 <li><input type="button" value="登录" class="login-btn" @click="login"></li>
                 <li><a href="/user/register">注册</a><a href="">忘记密码</a></li>
             </ul>
@@ -42,7 +42,6 @@
                         let obj = {
                             username: data.data.userName,
                             userId: data.data._id,
-                            phone: data.data.phoneNumber
                         }
                         if(data.data.nickname){
                             obj.setItem(nickname,data.data.nickName);
