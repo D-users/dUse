@@ -4,10 +4,10 @@ module.exports = {
     devServer: {
         proxy: {
             '/api': {
-                target: 'http://localhost:8888', //api端口
+                target: 'https://cnodejs.org', //api端口
                 changeOrigin: true,   //允许跨域
                 pathRewrite: {
-                    '^/api': ''
+                    '^/api': '/' //路径重写
                 }
             }
         }
