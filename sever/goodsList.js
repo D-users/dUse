@@ -32,6 +32,9 @@ var schema = new mongoose.Schema({
             classId: {
                 type: Number
             },
+            img:{
+                type: String
+            }
 
 
 
@@ -498,7 +501,34 @@ var Model = mongoose.model('goodslist', schema);
  })
 
 
+Router.get("/x",function (req,res) {
+    console.log(52456)
 
+    require("./goods");
+    var Goods = mongoose.model('goods')
+
+    for(let i=801;i<=804;i++){
+
+
+        Goods.find({classId:i*10+1},{_id:0,titleImg:1},function (err,docs) {
+            //   console.log(docs[0].titleImg[0].url)
+
+            var img=docs[0].titleImg[0].url
+            var data={
+                "childern.classId":i
+            }
+            console.log(data)
+            Model.update(data,{"childern.$.img":img},function (err,docs) {
+                console.log(docs)
+            })
+        })
+    }
+
+    // Model.update({"childern.classId":101},{"childern.$.img":0},function (err,docs) {
+    //     console.log(docs)
+    // })
+
+})
 
  module.exports = Router;
 
