@@ -7,20 +7,17 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-<<<<<<< HEAD
     "amaze-vue": "^1.1.16",
     "axios": "^0.18.0",
     "express": "^4.16.3",
     "jquery": "^3.3.1",
     "qs": "^6.5.2",
-=======
     "animate.css": "^3.6.1",
     "axios": "^0.18.0",
     "express": "^4.16.3",
     "good-storage": "^1.0.1",
     "jquery": "^3.3.1",
     "lib-flexible": "^0.3.2",
->>>>>>> pengliu
     "vue": "^2.5.16",
     "vue-infinite-loading": "^2.3.1",
     "vue-router": "^3.0.1",
