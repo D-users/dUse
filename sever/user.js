@@ -12,7 +12,7 @@ function getNowDate() {
     var day = date.getDate(); // 日
     var hour = date.getHours(); // 时
     var minutes = date.getMinutes(); // 分
-    var seconds = date.getSeconds() //秒
+    var seconds = date.getSeconds(); //秒
     var currentdate = year + sign1 + month + sign1 + day + "/" + hour + sign2 + minutes + sign2 + seconds;
     return currentdate;
 }
@@ -88,9 +88,7 @@ var schema = new mongoose.Schema({
             },
             Detail: {
                 type:String
-
             },
-
 
 
             totalMoney: {
@@ -99,11 +97,7 @@ var schema = new mongoose.Schema({
             orderAddressId: {
                 type: Number
             }
-
-
         }
-
-
     ],
     //收藏
     collect: [
