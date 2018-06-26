@@ -43,8 +43,8 @@
                             username: data.data.userName,
                             userId: data.data._id,
                         }
-                        if(data.data.nickname){
-                            obj.setItem(nickname,data.data.nickName);
+                        if(data.data.phoneNumber){
+                            obj.nickname=data.data.phoneNumber;
                         }
                         this.$store.commit('setStorage',obj);
                         window.location.replace("/user");
