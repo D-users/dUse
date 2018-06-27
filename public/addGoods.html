@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加商品</title>
+    <style>
+        .container {
+            width: 90%;
+            margin: 10px auto;
+            height: 800px;
+        }
+        .container tr{
+            line-height: 40px;
+            border-bottom: 1px solid #e5e5e5;
+            display: block;
+        }
+        .container td {
+            width: 200px;
+        }
+        .in {
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 style="text-align: center">添加商品页面</h1>
+    <table style="margin: 0 auto">
+    <tr>
+        <td>商品id：</td>
+        <td><input type="text" class="in"></td>
+    </tr>
+    <tr>
+        <td>商品分类：</td>
+        <td><input type="text" class="in"></td>
+    </tr>
+    <tr>
+        <td>品牌：</td>
+        <td><input type="text" class="in"></td>
+    </tr>
+    <tr>
+        <td>顶部图片：</td>
+        <td><input type="text" class="in"></td>
+    </tr>
+    <tr>
+        <td>详细图片：</td>
+        <td><input type="text" class="in"></td>
+    </tr>
+    <tr>
+        <td>价格：</td>
+        <td><input type="text" class="in"></td>
+    </tr>
+    <tr>
+        <td>韩豆：</td>
+        <td><input type="text" class="in"></td>
+    </tr>
+    <tr>
+        <td>专柜价：</td>
+        <td><input type="text" class="in"></td>
+    </tr>
+    <tr>
+        <td>已售：</td>
+        <td><input type="text" class="in"></td>
+    </tr>
+    <tr>
+        <td>是否为新品：</td>
+        <td>
+            <input type="radio">是
+            <input type="radio">否
+        </td>
+    </tr>
+    <tr>
+        <td>温馨提示：</td>
+        <td><input type="text" class="in"></td>
+    </tr>
+    <tr>
+        <td>商品样式：</td>
+        <td>
+            样式：<input type="text">
+            数量：<input type="text">
+        </td>
+    </tr>
+    <tr>
+        <td>用户评论：</td>
+        <td style="width: 300px">
+            星星数量：<input type="text"><br>
+            用户姓名：<input type="text"><br>
+            评价内容：<input type="text"><br>
+            评价时间: <input type="text">
+        </td>
+    </tr>
+    </table>
+    <tr><input type="button" id="tj" value="提交数据" style="padding: 15px 20px;color: white;background-color: green;font-size: 16px;border-radius: 5px;display: block;margin: 0 auto;"></tr>
+</div>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script>
+    $(function () {
+        $.ajax({
+            type:"get",
+            url:"/api",
+            success:function (data) {
+                console.log(data);
+            }
+        })
+        // $("#tj").click(function () {
+        //     $.ajax({
+        //         type:"post",
+        //         url:""
+        //     })
+        // })
+    })
+</script>
+</body>
+</html>
