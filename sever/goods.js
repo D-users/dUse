@@ -343,6 +343,52 @@ Router.post('/find/:type', function (req, res) {
     // })
 })
 
+Router.get("/index", function (req, res) {
+
+    var a = [
+        {
+            "title": "彩妆护肤",
+            classId: 1,
+            "con": []
+        },
+        {
+            "title": "身体护理",
+            classId: 2,
+            "con": []
+        },
+        {
+            "title": "内衣配饰",
+            classId: 3,
+            "con": []
+        },
+        {
+            "title": "潮流服饰",
+            classId: 4,
+            "con": []
+        },
+        {
+            "title": "品牌鞋包",
+            classId: 5,
+            "con": []
+        },
+        {
+            "title": "家具家电",
+            classId: 6,
+            "con": []
+        },
+    ]
+    var goodList=[]
+    a.map((value,index)=>{
+      // console.log(value.classId)
+
+        Model.find({"id":{$regex:(value.classId*10+"")}},{},{limit:2,sort:{sold:1}},function (err, docs) {
+console.log(docs)
+        })
+    })
+
+})
+
+
 module.exports = Router;
 
 
