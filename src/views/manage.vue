@@ -1,4 +1,4 @@
-<template>
+ <template>
     <div class="wrap">
         <div class="container">
             <h1 style="text-align: center;font-size: 40px;padding: 0px 0;color:black;">添加商品页面</h1>

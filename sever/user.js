@@ -86,9 +86,22 @@ var schema = new mongoose.Schema({
             state: {
                 type: Number
             },
-            Detail: {
-                type: String
-            },
+            Detail: [
+
+                {
+                    classId: {
+                        type: String
+                    },
+                    count: {
+                        type: Number
+                    }
+
+
+                }
+
+            ]
+
+            ,
             totalMoney: {
                 type: Number
             },
@@ -1292,34 +1305,8 @@ Router.post("/address", function (req, res) {
         }
     })
 })
-Router.post("/orderChange", function (req, res) {
-
-    // var  data={
-    //     state
-    //     Detail:[]
-    //
-    //
-    //
-    //
-    // }
-    if (req.body.id) {
 
 
-
-
-        //修改
-        Model.update({"order._id": req.body.id}, data, function (err, docs) {
-
-        })
-
-
-    } else {
-        //添加
-
-    }
-
-
-})
 Router.post("/addressRemove", function (req, res) {
     if (!req.body.userId || !req.body.addressId) {
         res.send({
@@ -1401,32 +1388,76 @@ Router.post("/addressRemove", function (req, res) {
 
 })
 
-// Router.post("/orderChange", function (req, res) {
-//
-//     if (req.body.orderId) {
-//         //修改
-//         //  Router.update({"order._id":req.body.orderId},{$set:{"goodsId.$.state":counts},$set:{"goodsId.$.Detail":counts}})
-//
-//
-//     } else {
-//         //添加
-//
-//         Router.update({"order._id": req.body.orderId}, {
-//             $push: {
-//                 order: {
-//                     state: req.body.classId,
-//                     Detail: req.body.Detail,
-//                     totalMoney: req.body.totalMoney,
-//                     orderAddressId: req.body.orderAddressId
-//                 }
-//             }
-//         }, function (req, res) {
-//             console.log(res)
-//
-//         })
-//
-//     }
-// })
+Router.post("/orderChange", function (req, res) {
+    var Detail =req.body.Detail||[{classId: 3011, count: 5}, {classId: 8011, count: 6}]
+    console.log(3)
+    if (req.body.orderId) {
+        console.log(1)
+        //修改
+
+        Model.update({"order._id":req.body.orderId},{$set:{
+            "order.$.state":req.body.state,
+                "order.$.Detail":Detail
+                ,"order.$.totalMoney":req.body.totalMoney
+                ,"order.$.orderAddressId":req.body.orderAddressId
+        }},function (err,docs) {
+            if (err) {
+                console.log(err)
+            }
+            res.send({
+                status: 1,
+                msg: "查询成功",
+                data: docs
+
+            })
+        })
+
+
+    } else {
+        console.log(2)
+        //添加
+
+        Model.update({"_id": req.body.userId}, {
+            $push: {
+                order: {
+                    state: req.body.state,
+                    Detail: Detail,
+                    totalMoney: req.body.totalMoney,
+                    orderAddressId: req.body.orderAddressId
+                }
+            }
+        }, function (err, docs) {
+            if (err) {
+                console.log(err)
+            }
+            res.send({
+                status: 1,
+                msg: "查询成功",
+                data: docs
+
+            })
+
+        })
+
+    }
+})
+Router.post("/orderRemove", function (req, res) {
+
+        Model.update({"_id":req.body.userId},{$pull:{"order":{"_id":req.body.orderId}}},function (err,docs) {
+            if (err) {
+                console.log(err)
+            }
+            res.send({
+                status: 1,
+                msg: "查询成功",
+                data: docs
+
+            })
+        })
+
+
+})
+
 
 
 module.exports = Router;
