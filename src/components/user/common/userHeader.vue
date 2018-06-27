@@ -1,6 +1,6 @@
 <template>
     <div class="header-box">
-        <a href="/user"><img src="../../../assets/img/user/go.png" alt=""></a>
+        <a href="javascript: void(0)" @click="goBack"><img src="../../../assets/img/user/go.png" alt=""></a>
         <h2>{{msg}}</h2>
     </div>
 </template>
@@ -10,6 +10,11 @@
         name: "userHeader",
         props:{
             msg: String
+        },
+        methods: {
+            goBack(){
+                this.$router.go(-1);
+            }
         }
     }
 </script>

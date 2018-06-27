@@ -5,6 +5,8 @@ import Cart from './views/cart'
 import List from './views/list'
 import ProductClassify from './views/Product/ProductClassify'
 import manage from './views/manage'
+import search from './views/home/search/search'
+import Detail from './views/home/search/searchDetails'
 
 //首页路由
 import Home from './views/home/home'
@@ -41,12 +43,12 @@ export default new Router({
       component: Index,
       alias: "/",
       children:[
-            {path: '/index/home', name: 'home', component: Home},
-            {path: '/index/flash', name: 'flash', component: Flash},
-            {path: '/index/beauty', name: 'beauty', component: Beauty},
-            {path: '/index/clothes', name: 'clothes', component: Clothes},
-            {path: '/index/daily', name: 'daily', component: Daily},
-            {path: '/index/cleaning', name: 'cleaning', component: Cleaning}
+        {path: '/index/home', name: 'home', component: Home},
+        {path: '/index/flash', name: 'flash', component: Flash},
+        {path: '/index/beauty', name: 'beauty', component: Beauty},
+        {path: '/index/clothes', name: 'clothes', component: Clothes},
+        {path: '/index/daily', name: 'daily', component: Daily},
+        {path: '/index/cleaning', name: 'cleaning', component: Cleaning}
       ]
     },
     {
@@ -55,24 +57,34 @@ export default new Router({
       component: manage,
     },
     {
+      path: '/search',
+      name: 'search',
+      component: search
+    },
+    {
+      path: '/search/detail/:key',
+      name: 'detail',
+      component: Detail
+    },
+    {
       path: '/user',
       name: 'user',
       component: User,
       children: [
-          {path:"login",component:UserLogin},
-          {path:"register",component:UserRegister},
-          {path:"/",component:UserIndex},
-          {path:"personalMsg",component:UserMsg},
-          {path:"recharge",component:Recharge},
-          {path:"withdrawal",component:Withdrawal},
-          {path:"balance",component:Balance},
-          {path:"bindCard",component:BindCard},
-          {path:"Integral",component:Integral},
-          {path:"address",component:Address},
-          {path:"newAddress/:id",name:"EditAddr",component:NewAddress},
-          {path:"getRecord/:type",name:"GetRecord",component:getRecord},
-          {path:"favorites",name:"Fav",component:Fav},
-          {path:"setNickname",component:SetNick}
+        {path:"login",component:UserLogin},
+        {path:"register",component:UserRegister},
+        {path:"/",component:UserIndex},
+        {path:"personalMsg",component:UserMsg},
+        {path:"recharge",component:Recharge},
+        {path:"withdrawal",component:Withdrawal},
+        {path:"balance",component:Balance},
+        {path:"bindCard",component:BindCard},
+        {path:"Integral",component:Integral},
+        {path:"address",component:Address},
+        {path:"newAddress/:id",name:"EditAddr",component:NewAddress},
+        {path:"getRecord/:type",name:"GetRecord",component:getRecord},
+        {path:"favorites",name:"Fav",component:Fav},
+        {path:"setNickname",component:SetNick}
       ]
     },
     {

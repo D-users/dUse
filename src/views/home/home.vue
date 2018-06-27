@@ -76,7 +76,6 @@
 </template>
 
 <script>
-    import animate from 'animate.css'
     export default {
         name: "home",
         data () {

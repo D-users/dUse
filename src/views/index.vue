@@ -1,7 +1,7 @@
 <template id="index">
-    <div v-if="isShow">
+    <div>
         <div class="all">
-            <a href="javascript:void(0);" @click="show">
+            <a href="/search">
                 <img src="./../assets/images/download-66.jpg" alt="" width="100%">
             </a>
             <div class="tab">
@@ -27,9 +27,6 @@
         </div>
             <router-view id="f" @click='fade'></router-view>
     </div>
-    <div v-else="isShow">
-        <search></search>
-    </div>
 </template>
 
 <script>
@@ -44,8 +41,7 @@
         name: "index",
         data(){
             return{
-                message:"",
-                isShow:true,
+                message:""
                 // search:'',
                 // isFocus:true,
                 // searches_list:[], //历史搜索记录列表

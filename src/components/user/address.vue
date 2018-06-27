@@ -26,7 +26,7 @@
             UserHeader
         },
         computed: {
-            ...mapState(['userId']),
+            ...mapState(['userId'])
         },
         data(){
             return{

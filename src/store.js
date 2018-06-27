@@ -8,7 +8,8 @@ export default new Vuex.Store({
       username: "",
       nickname: "",
       userId: "",
-      addressId: ""
+      addressId: "",
+      keys: ""
   },
   getters: {
 
@@ -31,6 +32,25 @@ export default new Vuex.Store({
                   }
               }
 
+          }
+      },
+      setKeys(state,obj){
+          if(state.keys){
+              let flag = true;
+              let arr = state.keys.split(",");
+              for(let i=0; i<arr.length; i++){
+                  if(arr[i] == obj.key){
+                      flag = false
+                  }
+              }
+              if(flag){
+                  arr.push(obj.key)
+              }
+              state.keys = arr.join(",")
+              localStorage.setItem('keys',state.keys);
+          }else{
+              state.keys = obj.key;
+              localStorage.setItem('keys',state.keys);
           }
       },
       removeAll(state){
