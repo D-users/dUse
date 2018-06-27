@@ -29,7 +29,7 @@ Router.post("/cart", (req, res) => {
                     if (value1.classId == value2.classId) {
 //console.log(value1)
 // console.log(value1,value2,"32132132")
-                        docs3.push( Object.assign({}, value1._doc, {goodsCount: value2.goodsCount}))
+                        docs3.push(Object.assign({}, value1._doc, {goodsCount: value2.goodsCount}))
                         // {goodsCount:value2.goodsCount}
                     }
                 })
@@ -94,6 +94,14 @@ Router.post("/collect", function (req, res) {
 
 Router.post("/order", (req, res) => {
 
+    if (!req.body.userId) {
+        res.send({
+            status: 0,
+            msg: "请输入userId",
+            data: 0
+        })
+        return
+    }
     Model.findOne({_id: req.body.userId}, {'order': 1}, (err, docs) => {
         if (err) {
             console.log(err)
@@ -119,24 +127,30 @@ Router.post("/order", (req, res) => {
                 value3.Detail.map((value4, index4) => {
                     docs2.map((value5, index5) => {
                         if (value4.classId == value5.classId) {
-                            Detail.push(Object.assign({}, value4, value5))
+
+
+                            Detail.push(Object.assign({}, value5._doc, {count: value4.count}))
+
                         }
                     })
                 })
-                delete value3.Detail
-                order.push(Object.assign(value3, {Detail: Detail}))
+
+                delete value3[Detail]
+                //     console.log(value3)
+                order.push(Object.assign({
+                    _id: value3._id,
+                    state: value3.state,
+                    totalMoney: value3.totalMoney
+                }, {Detail: Detail}))
 
             })
+            //console.log(order)
             res.send({
                 status: 1,
                 msg: "成功",
                 data: order
             })
-
-
         })
-
-
     })
 
 })

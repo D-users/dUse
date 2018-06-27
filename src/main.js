@@ -19,7 +19,7 @@ Vue.use(animate);
 Vue.use(wcSwiper);
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app')

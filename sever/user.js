@@ -178,6 +178,7 @@ var Model = mongoose.model('user', schema);
 
 ////////////////////////////////////////////////////////////注册/////////
 Router.post('/regist', function (req, res) {
+
     if (!req.body.userName || !req.body.pwd) {
         res.send({
             status: 0,
@@ -1365,7 +1366,6 @@ Router.post("/addressRemove", function (req, res) {
             }
         })
         collectStr2.splice(removeId, 1)
-
         Model.update({_id: req.body.userId}, {address: collectStr2}, function (err2, msg) {
             if (err2) {
                 res.send({
