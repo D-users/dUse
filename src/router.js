@@ -43,7 +43,6 @@ import ConfirmOrder from './components/user/confirmOrder'
 Vue.use(Router)
 
 export default new Router({
-<<<<<<< HEAD
   routes: [
     {
       path: '/index',
@@ -118,89 +117,9 @@ export default new Router({
       component: ProductClassify
     }
 
-      
+
 
 
   ],
   mode: "history"
 })
-=======
-    routes: [
-        {
-            path: '/index',
-            name: 'index',
-            component: Index,
-            alias: "/",
-            children:[
-                {path: '/index/home', name: 'home', component: Home},
-                {path: '/index/flash', name: 'flash', component: Flash},
-                {path: '/index/beauty', name: 'beauty', component: Beauty},
-                {path: '/index/clothes', name: 'clothes', component: Clothes},
-                {path: '/index/daily', name: 'daily', component: Daily},
-                {path: '/index/cleaning', name: 'cleaning', component: Cleaning}
-            ]
-        },
-        {
-            path: '/addGoods',
-            name: 'manage',
-            component: manage,
-        },
-        {
-            path: '/search',
-            name: 'search',
-            component: search
-        },
-        {
-            path: '/search/detail/:key',
-            name: 'detail',
-            component: Detail
-        },
-        {
-            path: '/user',
-            name: 'user',
-            component: User,
-            children: [
-                {path:"login",component:UserLogin},
-                {path:"register",component:UserRegister},
-                {path:"/",component:UserIndex},
-                {path:"personalMsg",component:UserMsg},
-                {path:"recharge",component:Recharge},
-                {path:"withdrawal",component:Withdrawal},
-                {path:"balance",component:Balance},
-                {path:"bindCard",component:BindCard},
-                {path:"Integral",component:Integral},
-                {path:"address",component:Address},
-                {path:"newAddress/:id",name:"EditAddr",component:NewAddress},
-                {path:"getRecord/:type",name:"GetRecord",component:getRecord},
-                {path:"favorites",name:"Fav",component:Fav},
-                {path:"setNickname",component:SetNick}
-            ]
-        },
-        {
-            path: '/user/register',
-            name: 'userRegister',
-            component: UserRegister
-        },
-        {
-            path: '/list',
-            name: 'list',
-            component: List
-        },
-        {
-            path: '/cart',
-            name: 'cart',
-            component: Cart
-        },
-        {
-            path: '/Product/ProductClassify',
-            name: 'ProductClassify',
-            component: ProductClassify
-        }
-
-
-
-
-    ],
-    mode: "history"
-})
->>>>>>> 3a4ca11c2b3f1c681b9579719a65f4b2480d252b
