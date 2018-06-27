@@ -1,7 +1,7 @@
 <template>
         <div class="footer">
             <div class="tab-item">
-                <a href="/home">
+                <a href="/">
                     <div><img src="http://m.051.com/Content/Images/n_ico_on1.png" alt=""></div>
                     <p>首页</p>
                 </a>
@@ -19,7 +19,7 @@
                 </a>
             </div>
             <div class="tab-item">
-                <a href="/person">
+                <a href="/user">
                     <div><img src="http://m.051.com/Content/Images/n_ico4.png" alt=""></div>
                     <p>个人中心</p>
                 </a>

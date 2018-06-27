@@ -6,7 +6,7 @@
             </a>
             <div class="tab">
                 <div class="tab-item">
-                    <router-link  to="/index/home">首页</router-link>
+                    <router-link  to="/">首页</router-link>
                 </div>
                 <div class="tab-item">
                     <router-link  to="/index/flash">限时抢购</router-link>
@@ -25,7 +25,8 @@
                 </div>
             </div>
         </div>
-            <router-view id="f" @click='fade'></router-view>
+        <router-view id="f" @click='fade'></router-view>
+        <my-footer></my-footer>
     </div>
 </template>
 
@@ -34,6 +35,7 @@
     import Bus from "./../assets/js/bus";
     // import {saveSearch}  from "../assets/js/cache"
     // import storage from 'good-storage'
+    import MyFooter from "../components/footer"
     import Search from "./home/search/search"
     // 1. 定义（路由）组件。
     const Index = { template: '#index' };
@@ -50,6 +52,7 @@
         },
         components:{
             Search,
+            MyFooter
         },
         methods:{
             show(){

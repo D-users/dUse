@@ -41,6 +41,7 @@
                     <li><a href="javascript: void(0)" @click="showAlert"><i></i><p>优惠券</p></a></li>
                 </ul>
             </div>
+            <my-footer></my-footer>
         </div>
         <div class="to-login-box" v-else>
             <a href="/user/login">未登录, 点击前往登陆</a>
@@ -50,8 +51,12 @@
 
 <script>
     import {mapState} from "vuex"
+    import MyFooter from "../footer"
     export default {
         name: "userIndex",
+        components: {
+            MyFooter
+        },
         data(){
             return {
                 unpaid: 0,

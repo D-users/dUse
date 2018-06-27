@@ -1,11 +1,7 @@
 <template>
     <div class="cart-wrap">
         <div class="cart-title">
-<<<<<<< HEAD
-            <!--<img src="../assets/img/go.png" alt="">-->
-=======
-            <img src="../assets/img/go.png" alt="">
->>>>>>> 3a4ca11c2b3f1c681b9579719a65f4b2480d252b
+            <img src="../assets/img/go.png" @click="$router.go(-1)" alt="">
             <h1>购物车</h1>
             <a href="javascript:void (0)" v-show="editShow" @click="edit">编辑</a>
             <a href="javascript:void (0)" v-show="compShow" @click="complete">完成</a>
@@ -82,7 +78,7 @@
             let formData = this.$qs.stringify({
                 userId: '5b2a5f5c9a29fa125c295b12'
             });
-            this.$axios.post("/api/get/cart", formData, {header: {contentType: 'application/json'}}).then(({data}) => {
+            this.$http.post("/api/get/cart", formData, {header: {contentType: 'application/json'}}).then(({data}) => {
                 this.cartInfo = data.data;
 
                 console.log(this.cartInfo);
