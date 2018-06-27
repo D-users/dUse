@@ -1,7 +1,7 @@
 <template>
     <div class="cart-wrap">
         <div class="cart-title">
-            <img src="../assets/img/go.png" alt="">
+            <!--<img src="../assets/img/go.png" alt="">-->
             <h1>购物车</h1>
             <a href="javascript:void (0)" v-show="editShow" @click="edit">编辑</a>
             <a href="javascript:void (0)" v-show="compShow" @click="complete">完成</a>

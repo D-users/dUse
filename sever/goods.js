@@ -1,7 +1,6 @@
 const Router = require("express").Router();
 const mongoose = require("mongoose");
 const db = mongoose.connect('mongodb://localhost:27017/dUserBase');//如果没有添加库名，默认链接该MongoDB中的test库
-
 var connection = mongoose.connection;
 //监听数据库连接成功
 connection.once('open', function () {
@@ -47,7 +46,7 @@ var schema = new mongoose.Schema({
 
     //已售
     sold: {
-        type: String
+        type: Number
     },
     //新上架 新品
     freshStoresId: {
@@ -110,6 +109,8 @@ var schema = new mongoose.Schema({
 
 //创建模型
 var Model = mongoose.model('goods', schema);
+
+
 Router.post('/', function (req, res) {
     if (!req.body.id || !req.body.keyword || !req.body.classId || !req.body.title || !req.body.brand || !req.body.sold || !req.body.tips) {
         res.send({
@@ -344,48 +345,84 @@ Router.post('/find/:type', function (req, res) {
 })
 
 Router.get("/index", function (req, res) {
+    var dataOut = {
+        newProduct: {
+            msg1: "新品推荐",
+            msg2: "轮播图的内容 3*5",
+            line:3,
+            column:5,
+            data: [[],[],[],[],[]]
+        },
+        classProduct: {
+            msg1: "分类推荐",
+            msg2: "分类推荐部分的内容",
+            data: [
+                {
+                    "title": "彩妆护肤",
+                    classId: 1,
+                    "con": []
+                },
+                {
+                    "title": "身体护理",
+                    classId: 2,
+                    "con": []
+                },
+                {
+                    "title": "内衣配饰",
+                    classId: 3,
+                    "con": []
+                },
+                {
+                    "title": "潮流服饰",
+                    classId: 4,
+                    "con": []
+                },
+                {
+                    "title": "品牌鞋包",
+                    classId: 5,
+                    "con": []
+                },
+                {
+                    "title": "家具家电",
+                    classId: 6,
+                    "con": []
+                },
+            ]
+        }
+    }
 
-    var a = [
-        {
-            "title": "彩妆护肤",
-            classId: 1,
-            "con": []
-        },
-        {
-            "title": "身体护理",
-            classId: 2,
-            "con": []
-        },
-        {
-            "title": "内衣配饰",
-            classId: 3,
-            "con": []
-        },
-        {
-            "title": "潮流服饰",
-            classId: 4,
-            "con": []
-        },
-        {
-            "title": "品牌鞋包",
-            classId: 5,
-            "con": []
-        },
-        {
-            "title": "家具家电",
-            classId: 6,
-            "con": []
-        },
-    ]
-    var goodList=[]
-    a.map((value,index)=>{
-      // console.log(value.classId)
+    Model.find({}, {}, {limit:15, sort: {sold: 1}}, function (err, docs) {
+//console.log(docs)
+docs.map((value,index)=>{
+    var x=Math.floor(index/3)
+    var y=index-3*x
+    console.log(x,y,132321)
+    dataOut.newProduct.data[x].push(value)
 
-        Model.find({"id":{$regex:(value.classId*10+"")}},{},{limit:2,sort:{sold:1}},function (err, docs) {
-console.log(docs)
+
+
+})
+
+
+         var goodList = []
+        dataOut.classProduct.data.map((value, index) => {
+
+            Model.find({"id": {$regex: (value.classId * 10 + "")}}, {}, {limit: 6, sort: {sold: 1}}, function (err, docs) {
+                value.con = docs
+
+
+                if (value.classId == 6) {
+
+                    res.send({
+                        status: 1,
+                        msg: "成功",
+                        data: dataOut
+                    })
+
+                }
+            })
         })
     })
-
 })
 
 
