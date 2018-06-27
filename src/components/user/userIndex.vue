@@ -17,14 +17,14 @@
             </div>
             <div class="midbar">
                 <ul class="order-navs">
-                    <li><a href=""><p>0</p><p>待支付</p></a></li>
-                    <li><a href=""><p>0</p><p>待发货</p></a></li>
-                    <li><a href=""><p>0</p><p>待收货</p></a></li>
-                    <li><a href=""><p>0</p><p>待评价</p></a></li>
-                    <li><a href=""><p>0</p><p>退货</p></a></li>
+                    <li><a href="javascript: void(0)"><p>{{unpaid}}</p><p>待支付</p></a></li>
+                    <li><a href="javascript: void(0)"><p>{{unSend}}</p><p>待发货</p></a></li>
+                    <li><a href="javascript: void(0)"><p>{{unReceived}}</p><p>待收货</p></a></li>
+                    <li><a href="javascript: void(0)"><p>{{unEvaluated}}</p><p>待评价</p></a></li>
+                    <li><a href="javascript: void(0)"><p>{{returned}}</p><p>退货</p></a></li>
                 </ul>
                 <div class="mid-nav">
-                    <a href=""><i></i>全部订单</a>
+                    <a href="/user/orderList"><i></i>全部订单</a>
                     <a href="/user/favorites"><i></i>宝贝收藏</a>
                 </div>
             </div>
@@ -32,13 +32,13 @@
                 <ul>
                     <li><a href="/user/balance"><i></i><p>余额</p></a></li>
                     <li><router-link :to="{ name: 'GetRecord', params: {type:'recharge'}}"><i></i><p>充值记录</p></router-link></li>
-                    <li><a href=""><i></i><p>公告管理</p></a></li>
+                    <li><a href="javascript: void(0)" @click="showAlert"><i></i><p>公告管理</p></a></li>
                     <li><a href="/user/Integral"><i></i><p>积分查询</p></a></li>
-                    <li><a href=""><i></i><p>推广管理</p></a></li>
+                    <li><a href="javascript: void(0)" @click="showAlert"><i></i><p>推广管理</p></a></li>
                     <li><a href="/user/bindCard"><i></i><p>银行卡绑定</p></a></li>
-                    <li><a href=""><i></i><p>手机绑定</p></a></li>
+                    <li><a href="javascript: void(0)" @click="showAlert"><i></i><p>手机绑定</p></a></li>
                     <li><router-link :to="{ name: 'GetRecord', params: {type:'withdrawal'}}"><i></i><p>提现记录</p></router-link></li>
-                    <li><a href=""><i></i><p>优惠券</p></a></li>
+                    <li><a href="javascript: void(0)" @click="showAlert"><i></i><p>优惠券</p></a></li>
                 </ul>
             </div>
         </div>
@@ -52,14 +52,60 @@
     import {mapState} from "vuex"
     export default {
         name: "userIndex",
+        data(){
+            return {
+                unpaid: 0,
+                unSend: 0,
+                unReceived: 0,
+                unEvaluated: 0,
+                returned: 0
+            }
+        },
         computed: {
-            ...mapState(['username','nickname'])
+            ...mapState(['username','nickname','userId'])
+        },
+        methods: {
+            showAlert(){
+                alert("暂无该功能,敬请期待后续添加!");
+            }
+        },
+        created(){
+            let formData = this.$qs.stringify({
+                userId: this.userId
+            });
+            this.$http({
+                method: "post",
+                url: "/api/get/order",
+                data: formData
+            }).then(({data})=>{
+                if(data.status){
+                    let arr = [];
+                    for(let i=0;i<data.data.length;i++){
+                        for(let j=0;j<data.data[i].Detail.length;j++){
+                            if(data.data[i].state == 0){
+                                this.unpaid += 1;
+                            }else if(data.data[i].state == 1){
+                                this.unSend += 1;
+                            }else if(data.data[i].state == 2){
+                                this.unReceived += 1;
+                            }else if(data.data[i].state == 3){
+                                this.unEvaluated += 1;
+                            }else{
+                                this.returned += 1;
+                            }
+                        }
+                    }
+                }
+            })
         }
     }
 </script>
 
 <style lang="less" scoped>
     @border: 1px solid #e5e5e5;
+    a{
+        text-decoration: none;
+    }
     #user{
         width: 100%;
         position: absolute;

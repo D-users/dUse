@@ -78,7 +78,7 @@
             let formData = this.$qs.stringify({
                 userId: '5b2a5f5c9a29fa125c295b12'
             });
-            this.$http.post("/api/get/cart", formData, {header: {contentType: 'application/json'}}).then(({data}) => {
+            this.$axios.post("/api/get/cart", formData, {header: {contentType: 'application/json'}}).then(({data}) => {
                 this.cartInfo = data.data;
 
                 console.log(this.cartInfo);
