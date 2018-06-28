@@ -26,24 +26,14 @@
                     <span>一 爆款榜单 一</span>
                 </div>
                 <ul class="bottom_bottom">
-                    <template v-for="v in 5">
-                        <li>
-                            <a href="">
-                                <img src="./../../assets/images/download-80.jpg" alt="">
-                                <span class="name">新款春夏季100%桑蚕丝优雅蕾丝女士真丝睡裙短袖丝绸真丝睡衣#粉色XXL</span>
-                                <span class="prices">￥<span>229</span><span>.00</span>+<span>40韩豆</span></span>
-                                <span class="people_buy">12人购买</span>
-                            </a>
-                        </li>
-                        <li class="even">
-                            <a href="">
-                                <img src="./../../assets/images/download-81.jpg" alt="">
-                                <span class="name">夏季新款真丝睡衣女圆领真丝睡裙性感100%桑蚕丝短袖连衣#大红色L</span>
-                                <span class="prices">￥<span>199</span><span>.00</span>+<span>40韩豆</span></span>
-                                <span class="people_buy">15人购买</span>
-                            </a>
-                        </li>
-                    </template>
+                    <li v-for="item in dataList">
+                        <a :href="getHref(item.classId)">
+                            <img :src="item.titleImg[0].url" alt="">
+                            <span class="name">{{item.title}}</span>
+                            <span class="prices">￥<span>{{getZ(item.style[0].pirce)}}</span><span>{{getX(item.style[0].pirce)}}</span>+<span>{{Math.round(item.style[0].hanPirce)}}积分</span></span>
+                            <span class="people_buy">{{item.sold}}</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -58,8 +48,16 @@
                 count : 0,
                 show : false,
                 list: [],
+                dataList: [],
                 imgList: ["http://7xlbbv.com2.z0.glb.qiniucdn.com/2554c537cbfa4a789348d0334ee9cc02.jpg?imageView2/1/w/750/h/307/q/100","http://7xlbbv.com2.z0.glb.qiniucdn.com/2b1a08ce91ef4c8a9828cb1704722f58.jpg?imageView2/1/w/750/h/307/q/100","http://7xlbbv.com2.z0.glb.qiniucdn.com/ec7b9bcb97ce42eeb786fd868926ade6.jpg?imageView2/1/w/750/h/307/q/100","http://7xlbbv.com2.z0.glb.qiniucdn.com/f3aece965fec4a11b9de2e6ec91d1672.jpg?imageView2/1/w/750/h/307/q/100","http://7xlbbv.com2.z0.glb.qiniucdn.com/da1e47654c6d49549c3cbd2a606114fb.jpg?imageView2/1/w/750/h/307/q/100","http://7xlbbv.com2.z0.glb.qiniucdn.com/9cf8410b73d54a0e9ef81e122afeefee.jpg?imageView2/1/w/750/h/307/q/100"],
             }
+        },
+        created(){
+            this.$http.get("/api/goods/find3/服饰").then(({data})=>{
+                if(data.status){
+                    this.dataList = data.data;
+                }
+            });
         },
         mounted () {
             this.fetchList();
@@ -71,6 +69,17 @@
             transitionend (current) {
                 this.currentSlide = current;
             },
+            getZ(val){
+                return Math.floor(val-0);
+            },
+            getX(val){
+                let i = (val-0)%1;
+                let j = Math.round(i*10);
+                return "."+j+"0";
+            },
+            getHref(val){
+                return "/goods/"+val;
+            }
         },
         props: {
             pagination: {
@@ -179,11 +188,11 @@
     }
     .bottom_bottom li{
         text-align: center;
-        width: 50%;
+        width: 48%;
         box-sizing: border-box;
         padding-top: 0.107rem;
         position: relative;
-
+        margin: 0.2rem 1%;
     }
     .even{
         padding-left: 0.107rem;
@@ -193,6 +202,7 @@
         display: block;
         background-color: #fff;
         padding-bottom: 0.16rem;
+        padding-top: 0.2rem;
     }
     .bottom_bottom li>a>img{
         width: 4.187rem;

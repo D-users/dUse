@@ -19,7 +19,7 @@
             <ul>
                 <li class="item" v-for="item in dataList">
                     <a href="">
-                        <div class="left"><a href=""><img :src="item.titleImg[0].url" alt=""></a></div>
+                        <div class="left"><a :href="getHref(item.classId)"><img :src="item.titleImg[0].url" alt=""></a></div>
                         <div class="right">
                             <ul>
                                 <li class="name">{{item.title}}</li>
@@ -128,6 +128,9 @@
                     let j = Math.round(i*10);
                     return "."+j+"0";
                 }
+            },
+            getHref(val){
+                return "/goods/"+val;
             }
         }
     }

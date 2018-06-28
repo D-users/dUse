@@ -10,8 +10,6 @@ import Detail from './views/home/search/searchDetails'
 import Goods from './views/Product/goodsDetail'
 import cy from './views/Product/addGoods'
 
-
-
 //首页路由
 import Home from './views/home/home'
 import Flash from './views/home/flash'
@@ -59,6 +57,11 @@ export default new Router({
         {path: '/index/daily', name: 'daily', component: Daily},
         {path: '/index/cleaning', name: 'cleaning', component: Cleaning}
       ]
+    },
+    {
+      path: '/goods/:goodsId',
+      component: Goods,
+      name: 'goods'
     },
     {
       path: '/addGoods',
@@ -124,13 +127,6 @@ export default new Router({
           name: 'cy',
           component: cy
       }
-
-
-
-
-
-    
-
   ],
   mode: "history"
 })
