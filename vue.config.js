@@ -9,8 +9,10 @@ module.exports = {
                 changeOrigin: true,   //允许跨域
                 pathRewrite: {
                     '^/api': ''
+                }
+            }
         }
-},
+    },
     configureWebpack: {
         //配置webpack
         plugins: [
