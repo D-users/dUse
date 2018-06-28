@@ -186,6 +186,7 @@
         background-color: #f2f2f2;
         color: rgb(116,119,116);
         width: 100%;
+        overflow-x: hidden;
         a {
             text-decoration: none;
         }
