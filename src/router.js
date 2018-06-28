@@ -60,6 +60,11 @@ export default new Router({
       ]
     },
     {
+      path: '/goods/:goodsId',
+      component: Goods,
+      name: 'goods'
+    },
+    {
       path: '/addGoods',
       name: 'manage',
       component: manage,

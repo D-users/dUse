@@ -2,7 +2,7 @@
     <div>
         <div class="content">
             <div class="top">
-                <!--引入轮播图主键-->
+                <!--引入轮播图组件-->
                 <wc-swiper v-if="list.length" :autoplay="false" class="ttt">
                     <wc-slide v-for="(v, k) in imgList" :key="k" class="slide-slide">
                         <a href="">
@@ -27,24 +27,14 @@
                    <span>一 爆款榜单 一</span>
                 </div>
                 <ul class="bottom_bottom">
-                    <template v-for="v in 5">
-                        <li>
-                            <a href="">
-                                <img src="./../../assets/images/download-75.jpg" alt="">
-                                <span class="name">美妆粉扑化妆粉扑电动粉扑震动电动打粉美容美妆工具#白色</span>
-                                <span class="prices">￥<span>78</span><span>.00</span>+<span>10韩豆</span></span>
-                                <span class="people_buy">12人购买</span>
-                            </a>
-                        </li>
-                        <li class="even">
-                            <a href="">
-                                <img src="./../../assets/images/download-69.jpg" alt="">
-                                <span class="name">正品热卖小铺保湿滋润孕妇唇膏 易上妆高显色口红小样#111暖橙色 </span>
-                                <span class="prices">￥<span>39</span><span>.00</span>+<span>10韩豆</span></span>
-                                <span class="people_buy">41人购买</span>
-                            </a>
-                        </li>
-                    </template>
+                    <li v-for="item in dataList">
+                        <a :href="getHref(item.classId)">
+                            <img v-lazy="item.titleImg[0].url" alt="">
+                            <span class="name">{{item.title}}</span>
+                            <span class="prices">￥<span>{{getZ(item.style[0].pirce)}}</span><span>{{getX(item.style[0].pirce)}}</span>+<span>{{Math.round(item.style[0].hanPirce)}}积分</span></span>
+                            <span class="people_buy">{{item.sold}}人购买</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -58,12 +48,20 @@
             return {
                 count : 0,
                 show : false,
+                dataList: [],
                 list: [],
                 imgList: ["http://7xlbbv.com2.z0.glb.qiniucdn.com/f23ef6fe4a4d47b58bb519a374bc2c44.jpg?imageView2/1/w/750/h/307/q/100","http://7xlbbv.com2.z0.glb.qiniucdn.com/2b1a08ce91ef4c8a9828cb1704722f58.jpg?imageView2/1/w/750/h/307/q/100","http://7xlbbv.com2.z0.glb.qiniucdn.com/ec7b9bcb97ce42eeb786fd868926ade6.jpg?imageView2/1/w/750/h/307/q/100","http://7xlbbv.com2.z0.glb.qiniucdn.com/f3aece965fec4a11b9de2e6ec91d1672.jpg?imageView2/1/w/750/h/307/q/100","http://7xlbbv.com2.z0.glb.qiniucdn.com/da1e47654c6d49549c3cbd2a606114fb.jpg?imageView2/1/w/750/h/307/q/100","http://7xlbbv.com2.z0.glb.qiniucdn.com/9cf8410b73d54a0e9ef81e122afeefee.jpg?imageView2/1/w/750/h/307/q/100"],
             }
         },
         mounted () {
             this.fetchList();
+        },
+        created(){
+            this.$http.get("/api/goods/find3/彩妆").then(({data})=>{
+                if(data.status){
+                    this.dataList = data.data;
+                }
+            });
         },
         methods: {
             fetchList () {
@@ -72,6 +70,17 @@
             transitionend (current) {
                 this.currentSlide = current;
             },
+            getZ(val){
+                return Math.floor(val-0);
+            },
+            getX(val){
+                let i = (val-0)%1;
+                let j = Math.round(i*10);
+                return "."+j+"0";
+            },
+            getHref(val){
+                return "/goods/"+val;
+            }
         },
         props: {
             pagination: {
@@ -94,7 +103,6 @@ a {
         width:100%;
         overflow: scroll;
     }
-//////
 .slide-slide {
         height: 100%;
         width: 100%;
@@ -165,11 +173,11 @@ a {
 }
 .bottom_bottom li{
     text-align: center;
-    width: 50%;
+    width: 48%;
     box-sizing: border-box;
     padding-top: 0.107rem;
     position: relative;
-
+    margin: 0.2rem 1%;
 }
 .even{
     padding-left: 0.107rem;
@@ -179,6 +187,7 @@ a {
     display: block;
     background-color: #fff;
     padding-bottom: 0.16rem;
+    padding-top: 0.2rem;
 }
 .bottom_bottom li>a>img{
     width: 4.187rem;

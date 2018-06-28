@@ -9,10 +9,11 @@
     export default {
         name: "app",
         computed: {
-            ...mapMutations(['getStorage'])
+            ...mapMutations(['getStorage','addArr'])
         },
         created(){
             this.$store.commit('getStorage')
+            this.$store.commit('addArr',[{name: 1, id: 2},{name: 1, id: 2}])
         }
     }
 </script>

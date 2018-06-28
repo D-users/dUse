@@ -9,6 +9,7 @@ import $ from "jquery";
 import animate from "animate.css"
 import wcSwiper from 'wc-swiper';
 import 'wc-swiper/style.css'
+import VueLazyload from 'vue-lazyload'
 
 Vue.prototype.$http = axios;
 Vue.prototype.$api = "/api";
@@ -17,7 +18,13 @@ Vue.config.productionTip = false;
 
 Vue.use(animate);
 Vue.use(wcSwiper);
-
+Vue.use(VueLazyload, {
+    preLoad: 1.3,
+    error: 'dist/error.png',
+    loading: 'dist/loading.gif',
+    attempt: 1,
+    listenEvents: ['touchmove']
+})
 new Vue({
     router,
     store,

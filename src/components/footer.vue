@@ -2,25 +2,25 @@
         <div class="footer">
             <div class="tab-item">
                 <a href="/">
-                    <div><img src="http://m.051.com/Content/Images/n_ico_on1.png" alt=""></div>
+                    <div><img src="../assets/img/index.png" alt=""></div>
                     <p>首页</p>
                 </a>
             </div>
             <div class="tab-item">
                 <a href="/Product/ProductClassify">
-                    <div><img src="http://m.051.com/Content/Images/n_ico2.png" alt=""></div>
+                    <div><img src="../assets/img/list.png" alt=""></div>
                     <p>分类</p>
                 </a>
             </div>
             <div class="tab-item">
-                <a href="/cart">
-                    <div><img src="http://m.051.com/Content/Images/n_ico3.png" alt=""></div>
+                <a :href="getHref">
+                    <div><img src="../assets/img/cart.png" alt=""></div>
                     <p>购物车</p>
                 </a>
             </div>
             <div class="tab-item">
                 <a href="/user">
-                    <div><img src="http://m.051.com/Content/Images/n_ico4.png" alt=""></div>
+                    <div><img src="../assets/img/home.png" alt=""></div>
                     <p>个人中心</p>
                 </a>
             </div>
@@ -28,8 +28,19 @@
 </template>
 
 <script>
+    import {mapState} from "vuex"
     export default {
-        name: "myfooter"
+        name: "myfooter",
+        computed: {
+            ...mapState(['userId']),
+            getHref(){
+                if(this.userId){
+                    return "/cart";
+                }else{
+                    return "/user/login";
+                }
+            }
+        },
     }
 </script>
 

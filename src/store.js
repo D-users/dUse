@@ -8,12 +8,18 @@ export default new Vuex.Store({
         nickname: "",
         userId: "",
         addressId: "",
-        keys: ""
+        keys: "",
+        arr: []
     },
     getters: {
 
     },
     mutations: {
+        addArr(state,arr){
+            for(let i=0;i<arr.length;i++){
+                state.arr.push(arr[i]);
+            }
+        },
         getStorage: function (state) {
             for(let i in state){
                 if(!state[i]){

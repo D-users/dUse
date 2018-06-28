@@ -1,6 +1,6 @@
 <template>
     <div class="wrap">
-        <a href="###" class="back"><img src="../../assets/img/back.png" alt=""></a>
+        <a href="javascript: void(0)" @click="$router.go(-1)" class="back"><img src="../../assets/img/back.png" alt=""></a>
         <div class="slide-wrap">
             <wc-swiper class="swiper" v-if="imgList.length" :defaultSlide="0" :interval="2000" :pagination="true">
                 <wc-slide v-for="(v, k) in imgList" :key="k" :class="map[k]">
@@ -36,9 +36,9 @@
                     <div class="sp-type">
                         <img :src="this.goodPic.url" alt="">
                         <div class="sp-des">
-                            <p>吹风机:</p>
+                            <p>规格:</p>
                             <p class="sp-kind" v-for="(kind,index) in goodInfo.style">
-                                <span @click="select(index)">{{kind.type}}</span>
+                                <span @click="select(index)" :class="getClass(index)">{{kind.type}}</span>
                             </p>
                         </div>
                     </div>
@@ -89,12 +89,12 @@
             <div class="kf_cont">
                 <h4>客服热线</h4>
                 <h2>
-                    <a href="###">0755-86717931</a>
+                    <a href="javascript: void(0)">0755-86717931</a>
                 </h2>
                 <p>周一至周六：9:00-17:30</p>
                 <h3>
-                    <a href="###" @touchstart="kfShow=false">取消</a>
-                    <a href="###" class="on">拨打</a>
+                    <a href="javascript: void(0)" @touchstart="kfShow=false">取消</a>
+                    <a href="javascript: void(0)" class="on">拨打</a>
                 </h3>
             </div>
         </div>
@@ -135,11 +135,10 @@
             }
         },
         created() {
-
             let formData = this.$qs.stringify({
-                key: 3012
+                key: this.$route.params.goodsId
             });
-            this.$axios.post("/api/goods/find/classId",formData,{header: {contentType: 'application/json'}}).then(({data}) => {
+            this.$http.post("/api/goods/find/classId",formData,{header: {contentType: 'application/json'}}).then(({data}) => {
                 this.goodInfo = data.data[0];
                 this.imgList = data.data[0].titleImg;
                 this.comLength = data.data[0].comments.length;
@@ -156,12 +155,19 @@
             fetchList () {
                 this.list = [0,1,2,3];
             },
-            select(index) {
-                this.index = index;
+            select(val) {
+                this.index = val;
                 this.priceInfo = this.goodInfo.style[this.index];
                 this.goodPic = this.goodInfo.titleImg[this.index];
                 // console.log(this.goodPic);
                 console.log(this.priceInfo);
+            },
+            getClass(num) {
+                if(num = this.index){
+                    return "active";
+                }else{
+                    return "";
+                }
             },
             less() {
                 if(this.quantity!=1){
@@ -351,8 +357,8 @@
                             margin-left: 0;
                         }
                         span {
-                            background-color: #e85281;
-                            color: white;
+                            background-color: #e5e5e5;
+                            color: #333;
                             border: 1px solid #e85281;
                             transition: all 0.5s;
                             padding: 0.1866rem 0.2133rem;
@@ -360,6 +366,10 @@
                             font-size:0.3733rem;
                             margin-top: 0.133rem;
                             display: inline-block;
+                            &.active{
+                                background-color: #e85281;
+                                color: white;
+                            }
                         }
                     }
                 }
