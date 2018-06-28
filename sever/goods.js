@@ -14,6 +14,9 @@ var schema = new mongoose.Schema({
     id: {
         type: String
     },
+    firstClass:{
+        type: String
+    },
     //商品分类
     classId: {
         type: String
@@ -254,6 +257,39 @@ Router.get('/find/:type', function (req, res) {
 })
 
 //根据关键字查询商品
+
+
+Router.get('/find3/:type', function (req, res) {
+
+    console.log(req.params.type)
+
+    Model.find({firstClass:{$regex:req.params.type} }, {},{limit:12,sort:{"sold":1}}, function (err, docs) {
+        res.send({
+            status: 1,
+            msg: "成功",
+            data: docs
+        })
+    })
+
+
+})
+
+Router.get('/find2/:type', function (req, res) {
+
+    console.log(req.params.type)
+
+    Model.find({id: req.params.type + ""}, {}, function (err, docs) {
+        res.send({
+            status: 1,
+            msg: "成功",
+            data: docs
+        })
+    })
+
+
+})
+
+
 Router.post('/find/:type', function (req, res) {
 
     if (req.params.type == "classId") {
@@ -349,9 +385,9 @@ Router.get("/index", function (req, res) {
         newProduct: {
             msg1: "新品推荐",
             msg2: "轮播图的内容 3*5",
-            line:3,
-            column:5,
-            data: [[],[],[],[],[]]
+            line: 3,
+            column: 5,
+            data: [[], [], [], [], []]
         },
         classProduct: {
             msg1: "分类推荐",
@@ -391,37 +427,129 @@ Router.get("/index", function (req, res) {
         }
     }
 
-    Model.find({}, {}, {limit:15, sort: {sold: 1}}, function (err, docs) {
+    Model.find({}, {}, {limit: 15, sort: {brand: 1}}, function (err, docs) {
 //console.log(docs)
-docs.map((value,index)=>{
-    var x=Math.floor(index/3)
-    var y=index-3*x
-    console.log(x,y,132321)
-    dataOut.newProduct.data[x].push(value)
+        docs.map((value, index) => {
+            var x = Math.floor(index / 3)
+            var y = index - 3 * x
+         //   console.log(x, y, 132321)
+            dataOut.newProduct.data[x].push(value)
+
+
+        })
+
+
+         Model.find({"id": {$regex: ( 10 + "")}}, {}, {
+             limit: 6,
+             sort: {sold: 1}
+         }, function (err, docs1) {
+
+             dataOut.classProduct.data[0].con=docs1
+             Model.find({"id": {$regex: ( 20 + "")}}, {}, {
+                 limit: 6,
+                 sort: {sold: 1}
+             }, function (err, docs2) {
+
+                 dataOut.classProduct.data[1].con=docs2
+                 Model.find({"id": {$regex: ( 30 + "")}}, {}, {
+                     limit: 6,
+                     sort: {sold: 1}
+                 }, function (err, docs3) {
+
+                     dataOut.classProduct.data[2].con=docs3
+/////////////
+                     Model.find({"id": {$regex: ( 40 + "")}}, {}, {
+                         limit: 6,
+                         sort: {sold: 1}
+                     }, function (err, docs4) {
+
+                         dataOut.classProduct.data[3].con=docs4
+////////
+                         Model.find({"id": {$regex: ( 50 + "")}}, {}, {
+                             limit: 6,
+                             sort: {sold: 1}
+                         }, function (err, docs5) {
+
+                             dataOut.classProduct.data[4].con=docs5
+////////
+                             Model.find({"id": {$regex: ( 60 + "")}}, {}, {
+                                 limit: 6,
+                                 sort: {sold: 1}
+                             }, function (err, docs6) {
+
+                                 dataOut.classProduct.data[5].con=docs6
+
+                                 res.send({
+                                     status: 1,
+                                     msg: "成功",
+                                     data: dataOut
+                                 })
+
+////////
+//////
+
+                             })
+//////
+
+                         })
+//////
+
+                     })
+////////
+
+                 })
+
+             })
+
+         })
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////
+//         dataOut.classProduct.data.map((value, index) => {
+//             Model.find({"id": {$regex: (value.classId * 10 + "")}}, {}, {
+//                 limit: 6,
+//                 sort: {sold: 1}
+//             }, function (err, docs) {
+//                 value.con = docs
+//
+//
+//                 if (value.classId == 6) {
+//
+//                     res.send({
+//                         status: 1,
+//                         msg: "成功",
+//                         data: dataOut
+//                     })
+//
+//                 }
+//             })
+//
+//
+//         })
+
+////////////////////
+    })
 })
 
 
-         var goodList = []
-        dataOut.classProduct.data.map((value, index) => {
-
-            Model.find({"id": {$regex: (value.classId * 10 + "")}}, {}, {limit: 6, sort: {sold: 1}}, function (err, docs) {
-                value.con = docs
-
-
-                if (value.classId == 6) {
-
-                    res.send({
-                        status: 1,
-                        msg: "成功",
-                        data: dataOut
-                    })
-
-                }
-            })
-        })
+Router.post("/addcy",function (req,res) {
+    console.log(1213213)
+    console.log(req.body)
+    res.send({
+        data:req.body
     })
 })
 

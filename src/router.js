@@ -8,6 +8,7 @@ import manage from './views/Product/manage'
 import search from './views/home/search/search'
 import Detail from './views/home/search/searchDetails'
 import Goods from './views/Product/goodsDetail'
+import cy from './views/Product/addGoods'
 
 
 
@@ -115,7 +116,12 @@ export default new Router({
       path: '/Product/ProductClassify',
       name: 'ProductClassify',
       component: ProductClassify
-    }
+    },
+      {
+          path: '/cy',
+          name: 'cy',
+          component: cy
+      }
 
 
 

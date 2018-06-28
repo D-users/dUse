@@ -59,6 +59,7 @@ Router.post("/collect", function (req, res) {
         return
     }
     var data = []
+    var data2 = []
     Model.findOne({_id: req.body.userId}, {_id: 0, collect: 1}, (err1, docs1) => {
         docs1.collect.map((value) => {
             data.push(value.classId)
@@ -79,14 +80,14 @@ Router.post("/collect", function (req, res) {
 
                 docs1.collect.map((value2, index2) => {
                     if (value1.classId == value2.classId) {
-                        data.push(value1)
+                        data2.push(value1)
                     }
                 })
             })
             res.send({
                 status: 1,
                 msg: "成功",
-                data: data
+                data: data2
             })
         })
     })

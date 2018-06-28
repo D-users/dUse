@@ -1389,7 +1389,21 @@ Router.post("/addressRemove", function (req, res) {
 })
 
 Router.post("/orderChange", function (req, res) {
-    var Detail =req.body.Detail||[{classId: 3011, count: 5}, {classId: 8011, count: 6}]
+//[{classId: 3011, count: 5}, {classId: 8011, count: 6}]
+
+
+       if(req.body.orderId||!req.body.state||!req.body.Detail||!req.body.totalMoney||!req.body.orderAddressId){
+           res.send({
+               status: 0,
+               msg: "失败",
+           })
+           return;
+       }
+
+
+
+
+    var Detail =req.body.Detail
     console.log(3)
     if (req.body.orderId) {
         console.log(1)
