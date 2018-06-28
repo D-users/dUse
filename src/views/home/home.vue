@@ -33,7 +33,8 @@
                         <img src="./../../assets/images/download-59.jpg" alt="">
                         <div>
                             <wc-swiper  v-if="list.length" :autoplay="false" class="ttt">
-                                <wc-slide v-for="item in 5" class="slide-slide">
+
+                                <wc-slide v-for="item in 5" v-bind:key="item"  class="slide-slide">
                                     <template v-for="(v, k) in imgList1">
                                         <a href="">
                                             <img  :src="v" alt="">

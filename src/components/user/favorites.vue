@@ -10,7 +10,7 @@
                         <p class="type-box">{{item.style[0].type}}</p>
                         <p class="count-box">￥ {{item.style[0].countersPirce}}</p>
                     </div>
-                    <div class="remove-box">移除</div>
+                    <div class="remove-box" @click="removeFav(item.classId)">移除</div>
                 </li>
             </ul>
         </div>
@@ -34,22 +34,41 @@
                 dataList: []
             }
         },
+        computed: {
+            ...mapState(['userId'])
+        },
         created(){
             let formData = this.$qs.stringify({
-                key: 4012
+                userId: this.userId
             });
             this.$http({
                 method: 'post',
-                url: "/api/goods/find/classId",
+                url: "/api/get/collect",
                 data: formData
             }).then(({data})=>{
-                console.log(data)
-                this.dataList.push(data.data[0]);
-
+                if(data.status){
+                    this.dataList = data.data;
+                }
             });
         },
         mounted(){
+            this.menuScroll = new Bscroll(this.$refs.navBox,{
+                click: true
+            });
+        },
+        methods: {
+            removeFav(val){
+                let formData = this.$qs.stringify({
+                    userId: this.userId
+                });
+                this.$http({
+                    method: "post",
+                    url: "/api/get/order",
+                    data: formData
+                }).then(({data})=>{
 
+                });
+            }
         }
     }
 </script>
@@ -69,6 +88,7 @@
                 justify-content: space-between;
                 padding: 0.4rem;
                 background: white;
+                border-bottom: 1px solid #e5e5e5;
                 img{
                     width: 2.6667rem;
                     height: 2.6667rem;

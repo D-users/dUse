@@ -7,7 +7,7 @@
                 </a>
             </div>
             <div class="tab-item">
-                <a href="/kinds">
+                <a href="/Product/ProductClassify">
                     <div><img src="http://m.051.com/Content/Images/n_ico2.png" alt=""></div>
                     <p>分类</p>
                 </a>
