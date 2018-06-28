@@ -116,10 +116,6 @@ export default new Router({
       name: 'ProductClassify',
       component: ProductClassify
     }
-
-
-
-
   ],
   mode: "history"
 })

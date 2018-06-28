@@ -31,7 +31,6 @@
 </template>
 
 <script>
-    import $ from "jquery"
     import Bus from "./../assets/js/bus";
     // import {saveSearch}  from "../assets/js/cache"
     // import storage from 'good-storage'

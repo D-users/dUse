@@ -45,6 +45,7 @@
         width: 100%;
         z-index: 100;
         border-top: 1px solid rgba(7, 17, 27, 0.1);
+        background: white;
         .tab-item {
             flex: 1;
             padding: 0.133rem 0 0;
