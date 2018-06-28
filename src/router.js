@@ -117,7 +117,7 @@ export default new Router({
       path: '/Product/ProductClassify',
       name: 'ProductClassify',
       component: ProductClassify
-<<<<<<< HEAD
+
     },
       {
           path: '/cy',
@@ -128,9 +128,9 @@ export default new Router({
 
 
 
-=======
-    }
->>>>>>> dbf1e70bc198a5da96744ebba685bf57c49dafe6
+
+    
+
   ],
   mode: "history"
 })
