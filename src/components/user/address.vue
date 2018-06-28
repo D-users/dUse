@@ -122,17 +122,19 @@
                     border-radius: 50%;
                     margin: 0 0.2rem;
                     margin-right: 0.4rem;
+                    position: relative;
                     &.selected{
                         &::after{
-                            content: ".";
-                            font-size: 1rem;
-                            color: red;
-                            width: 0.2rem;
-                            height: 0.2rem;
-                            border-radius: 50%;
-                            position: relative;
-                            top: -0.8rem;
-                            left: 3px;
+                            content: "";
+                            display: block;
+                            background: red;
+                            width: 0.10667rem;
+                            height: 0.10667rem;
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            margin-top: -0.05333rem;
+                            margin-left: -0.05333rem;
                         }
                     }
                 }

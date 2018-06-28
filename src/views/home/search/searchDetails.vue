@@ -69,10 +69,11 @@
                 key: this.$route.params.key
             });
             let arr = [{"className":"眼线","classId":101},{"className":" 眼影 ","classId":102},{"className":"眉笔","classId":103},{"className": " 唇膏 ","classId":104},{"className":"腮红","classId":105},{"className":"卸妆","classId":106},{"className":"洁面","classId":107},{"className":"爽肤水","classId":108},{"className":"乳液水","classId":109},{"className":"乳液面霜","classId":110},{"className":"精华","classId":111},{"className":"眼霜","classId":112},{"className":"防晒","classId":113},{"className":"面膜","classId":114},{"className":"套装","classId":115},{"className":"护发","classId":201},{"className":"沐浴","classId":202},{"className":"洗发","classId":203},{"className":"染发","classId":204},{"className":"牙膏/牙粉","classId":205},{"className":"造型","classId":206},{"className":"牙刷/牙线","classId":207},{"className":"文胸","classId":301},{"className":"内裤","classId":302},{"className":"保暖衣服","classId":303},{"className":"袜子","classId":304},{"className":"瘦腰","classId":305},{"className":"帽子","classId":306},{"className":"眼镜","classId":307},{"className":"围巾","classId":308},{"className":"雨伞","classId":309},{"className":"项链","classId":310},{"className":"饰品","classId":311},{"className":"皮带","classId":312},{"className":"连衣裙","classId":401},{"className":"针织衫","classId":402},{"className":"T恤","classId":403},{"className":"衬衫","classId":404},{"className":"长裤","classId":405},{"className":"睡衣","classId":406},{"className":"个人护理","classId":501},{"className":"小家电","classId":502},{"className":"连衣裙","classId":503},{"className":"厨具","classId":504},{"className":"厨房家电","classId":505},{"className":"家装","classId":506},{"className":"家纺","classId":507},{"className":"数码办公","classId":508},{"className":"日用品","classId":509},{"className":"餐具","classId":510},{"className":"单肩包","classId":601},{"className":"手提包","classId":602},{"className":"双肩包","classId":603},{"className":"公交报","classId":604},{"className":"手拿包","classId":605},{"className":"钱包","classId":606},{"className":"雪地靴","classId":607},{"className":"拖鞋 ","classId":608},{"className":"奶粉","classId":701},{"className":"饼干蛋糕","classId":702},{"className":"糖果巧克力","classId":703},{"className":"休闲食品","classId":704},{"className":"冲调饮料","classId":705},{"className":"粮油香精","classId":706},{"className":"洗护用品","classId":707},{"className":"玩具乐器","classId":708},{"className":"尿裤","classId":709},{"className":"跑步机","classId":801},{"className":"动感单车","classId":802},{"className":"仰卧板","classId":803},{"className":"瑜伽垫","classId":804},{"className":"自行车","classId":805},{"className":"帐篷垫子","classId":806},{"className":"睡袋吊床","classId":807},{"className":"户外用品","classId":808},{"className":"其他工具","classId":809}];
-            let i=0;
+            let k=0;
             for(let i=0;i<arr.length;i++){
                 if(arr[i].classId == this.key){
                     this.flag = true;
+                    k = i;
                 }
             }
             if(this.flag){
@@ -81,7 +82,7 @@
                     if(data.status){
                         this.list = data.data;
                         this.dataList = data.data;
-                        this.key = arr[i].className;
+                        this.key = arr[k].className;
                     }
                 });
             }else{

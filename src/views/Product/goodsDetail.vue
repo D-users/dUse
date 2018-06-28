@@ -11,8 +11,8 @@
         <div class="sp-info">
             <h1><p>{{goodInfo.title}}</p> <img src="../../assets/img/psale-icon.png" alt=""></h1>
             <div class="price-info">
-                <p><span class="unit-price">{{this.priceInfo.pirce}}</span> <span class="unit-point">+20.00韩豆</span></p>
-                <span class="collect" @touchstart="collect">{{this.collectInfo}}</span>
+                <p><span class="unit-price">{{this.priceInfo.pirce}}</span> <span class="unit-point">+20.00积分</span></p>
+                <span class="collect" @touchstart="addCollect">{{getText}}</span>
             </div>
             <div class="other-info">
                 <p>库存：<span>{{this.priceInfo.count}}</span></p>
@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="sp-ensure">
-            <p><span>温馨提示</span>当您遇到喜欢的商品，却韩豆不足时，可以用纯现金支付喔!</p>
+            <p><span>温馨提示</span>当您遇到喜欢的商品，却积分不足时，可以用纯现金支付喔!</p>
             <p>
                 <a href="###">100%正品</a>
                 <a href="###">速度保障</a>
@@ -47,8 +47,8 @@
                     <p class="num-title">数量</p>
                     <div class="nc-main">
                         <a href="javascript:void(0)" @touchstart="less" class="num-less">-</a>
-                        <input type="text" value="1" class="num" v-model="this.quantity">
-                        <a href="javascript:void(0)" @touchstart="quantity++" class="num-add">+</a>
+                        <input type="text" value="1" class="num" v-model="count">
+                        <a href="javascript:void(0)" @touchstart="count++" class="num-add">+</a>
                     </div>
                 </div>
             </div>
@@ -77,19 +77,19 @@
         </div>
         <div class="sp-footer">
             <a href="javascript:void (0)" @click="kfShow=true" class="kf">客服</a>
-            <a href="###" class="shopcart">
-                <b class="shopnum" v-if="isClick">{{this.quantity}}</b>
+            <a href="/cart" class="shopcart">
+                <b class="shopnum">{{quantity}}</b>
                 购物车
             </a>
-            <a href="javascript:void (0)" class="buy">立即购买</a>
-            <a href="javascript:void (0)" @touchstart="isClick=true" class="add-shopcart">加入购物车</a>
+            <a href="javascript:void (0)" class="buy" @click="goBuy">立即购买</a>
+            <a href="javascript:void (0)" @touchstart="addCart" class="add-shopcart">加入购物车</a>
         </div>
         <div class="kf_box" v-show="kfShow">
             <div class="kf_bg"></div>
             <div class="kf_cont">
                 <h4>客服热线</h4>
                 <h2>
-                    <a href="javascript: void(0)">0755-86717931</a>
+                    <a href="javascript: void(0)">13093625658</a>
                 </h2>
                 <p>周一至周六：9:00-17:30</p>
                 <h3>
@@ -102,6 +102,7 @@
 </template>
 
 <script>
+    import {mapState,mapMutations} from "vuex"
     export default {
         name: "goods-detail",
         data() {
@@ -111,10 +112,12 @@
                 list:[],
                 comLength:'',
                 index:0,
-                quantity:1,
+                quantity:0,
+                count: 1,
                 isClick:false,
                 isCollect:false,
                 collectInfo:'收藏',
+                collectFlag: false,
                 map:{
                     0: 'slide a',
                     1: 'slide b',
@@ -134,6 +137,17 @@
                 }
             }
         },
+        computed: {
+            ...mapState(['userId']),
+            ...mapMutations(['setStorage']),
+            getText() {
+                if(this.collectFlag) {
+                    return "已收藏";
+                }else {
+                    return "收藏";
+                }
+            },
+        },
         created() {
             let formData = this.$qs.stringify({
                 key: this.$route.params.goodsId
@@ -146,7 +160,32 @@
                 console.log(this.imgList);
             }).catch((err) => {
                 console.error(err);
-            })
+            });
+            if(this.userId){
+                let fData = this.$qs.stringify({
+                   userId: this.userId
+                });
+                this.$http.post("/api/get/cart", fData, {header: {contentType: 'application/json'}}).then(({data}) => {
+                    if(data.status){
+                        let num = 0;
+                        for(let i=0;i<data.data.length;i++){
+                            num+=data.data[i].goodsCount;
+                        }
+                        this.quantity = num;
+                    }
+                }).catch((err) => {
+                    console.error(err);
+                })
+                this.$http.post("/api/get/cart", fData).then(({data})=>{
+                    if(data.status){
+                        for(let i=0;i<data.data.length;i++){
+                            if(data.data[i].classId == this.$route.params.goodsId){
+                                this.collectFlag = true;
+                            }
+                        }
+                    }
+                });
+            }
         },
         mounted () {
             this.fetchList();
@@ -163,23 +202,75 @@
                 console.log(this.priceInfo);
             },
             getClass(num) {
-                if(num = this.index){
+                if(num == this.index){
                     return "active";
                 }else{
                     return "";
                 }
             },
             less() {
-                if(this.quantity!=1){
-                    this.quantity--;
+                if(this.count!=1){
+                    this.count--;
                 }
             },
-            collect() {
-                this.isCollect = !this.isCollect;
-                if(this.isCollect) {
-                    this.collectInfo = "已收藏";
-                }else {
-                    this.collectInfo = "收藏";
+            addCollect(){
+                if(this.collectFlag){
+                    return;
+                }else{
+                    if(this.userId){
+                        let formData = this.$qs.stringify({
+                            userId: this.userId,
+                            classId: this.$route.params.goodsId,
+                            count: 1
+                        });
+                        this.$http.post("/api/user/collectChange",formData).then(({data}) => {
+                            if(data.status){
+                                alert("收藏成功!")
+                                this.collectFlag = true;
+                            }else{
+                                alert("收藏失败!")
+                            }
+                        }).catch((err) => {
+                            console.error(err);
+                        });
+                    }else{
+                        alert("请登陆后再收藏商品!");
+                    }
+                }
+            },
+            goBuy(){
+                if(this.userId){
+                    let obj = this.goodInfo;
+                    obj.goodsCount = 1;
+                    var str = JSON.stringify([obj]);
+                    this.$store.commit("setStorage",{
+                        cart: str
+                    });
+                    window.location.replace("/user/confirmOrder");
+                }else{
+                    window.location.replace("/user/login");
+                }
+            },
+            addCart(){
+                if(this.userId){
+                    let formData = this.$qs.stringify({
+                        userId: this.userId,
+                        classId: this.goodInfo.classId,
+                        count: this.count
+                    });
+                    this.$http({
+                        method: "post",
+                        url: "/api/user/shoppingCartChange",
+                        data: formData
+                    }).then(({data})=>{
+                        if(data.status){
+                            alert("添加成功!");
+                        }else{
+                            alert("添加失败!");
+                        }
+                    })
+                }else{
+                    window.location.replace("/user/login");
                 }
             }
         }
@@ -192,6 +283,7 @@
         background-color: #f2f2f2;
         color: rgb(116,119,116);
         width: 100%;
+        overflow-x: hidden;
         a {
             text-decoration: none;
         }
@@ -397,7 +489,7 @@
                     }
                     .num {
                         width: 1.6rem;
-                        height: 0.9333rem;
+                        height: 0.88rem;
                         display: block;
                         float: left;
                         line-height: 0.9333rem;

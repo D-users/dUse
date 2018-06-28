@@ -49,13 +49,13 @@
                 <template v-for="(v,k) in goods.classProduct.data">
                     <div class="bottom">
                         <div class="bottom-top">
-                            <a :href="getHref(v.classId)">
+                            <a href="javascript: void(0)">
                                 <img src="./../../assets/images/download-23.jpg" alt="">
                             </a>
                         </div>
                         <div class="bmbb">
                             <div class="bottom-middle">
-                                <a :href="getHref(v.classId)">
+                                <a href="javascript: void(0)">
                                     <img width="100%" src="./../../assets/images/download-60.jpg" alt="">
                                 </a>
                             </div>

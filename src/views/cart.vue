@@ -20,7 +20,7 @@
                                 <!--加on类名代表选中-->
                                 <span class="item-check-btn" @touchstart="select(good)"
                                       :class="good.isShow?'on':''"></span>
-                                <a href="###" class="goods-pic">
+                                <a :href="getHref(good.classId)" class="goods-pic">
                                     <img :src="good.titleImg[0].url"
                                          alt="">
                                 </a>
@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="pri-info">
                                     单价：<em>￥<span>{{good.style[0].pirce}}</span>
-                                    <small> + <span>{{good.style[0].hanPirce}}</span>韩豆</small>
+                                    <small> + <span>{{good.style[0].hanPirce}}</span>积分</small>
                                 </em>
                                     <del>￥<span>{{good.style[0].countersPirce}}</span></del>
                                 </div>
@@ -50,7 +50,7 @@
                     <!--加on类名代表选中-->
                     <a href="javascript:void(0)" @touchstart="allShow" :class="isAllShow?'all-btn on':'all-btn'">全选</a>
                     <p>合计(不含运费):<span>￥<b>{{price}}</b></span></p>
-                    <a href="javascript:void(0)" class="res-btn">结算</a>
+                    <a href="/user/confirmOrder" class="res-btn" @touchstart="tj">结算</a>
                 </div>
                 <div class="del-footer">
                     <a href="javascript:void(0)" @touchstart="allShow" :class="isAllShow?'all-btn on':'all-btn'">全选</a>
@@ -62,6 +62,7 @@
 </template>
 
 <script>
+    import {mapMutations} from "vuex"
     export default {
         name: "cart",
         data() {
@@ -71,7 +72,8 @@
                 cartInfo: [],
                 isAllShow: false,
                 isDel: false,
-                index: 0
+                index: 0,
+                goodsArr:[]
             }
         },
         created() {
@@ -80,7 +82,6 @@
             });
             this.$http.post("/api/get/cart", formData, {header: {contentType: 'application/json'}}).then(({data}) => {
                 this.cartInfo = data.data;
-
                 console.log(this.cartInfo);
             }).catch((err) => {
                 console.error(err);
@@ -102,7 +103,9 @@
                     }
                     this.isAllShow = false;
                 })
-
+            },
+            getHref(val){
+                return "/goods/"+val;
             },
             complete() {
                 this.editShow = true;
@@ -146,8 +149,26 @@
                 })
                 // this.isAllShow = !this.isAllShow;
             },
+            tj() {
+                var tj = confirm("是否进行结算");
+                if(tj) {
+                    for(var i=0;i<this.cartInfo.length;i++){
+                        if(this.cartInfo[i].isShow) {
+                            this.goodsArr.push(this.cartInfo[i]);
+                        }
+                    }
+                    var str = JSON.stringify(this.goodsArr);
+                    this.$store.commit("setStorage",{
+                        cart: str
+                    });
+                    window.location.replace("/user/confirmOrder");
+                }else {
+                    return false;
+                }
+            }
         },
         computed: {
+            ...mapMutations(['setStorage']),
             price() {
                 var count = 0;
                 for (var i = 0; i < this.cartInfo.length; i++) {
@@ -337,7 +358,7 @@
             background: url("../assets/img/c1.png") no-repeat;
             background-size: 0.48rem auto;
             background-position: 0.266rem center;
-            width: 1.066rem;
+            width: 2.066rem;
             height: 1.333rem;
             padding-left: 0.933rem;
             font-size: 0.373rem;
@@ -348,7 +369,7 @@
                 background: url("../assets/img/cc2.png") no-repeat;
                 background-size: 0.48rem auto;
                 background-position: 0.266rem center;
-                width: 1.066rem;
+                width: 2.066rem;
                 height: 1.333rem;
                 padding-left: 0.933rem;
                 font-size: 0.373rem;
@@ -393,7 +414,7 @@
             background: url("../assets/img/c1.png") no-repeat;
             background-size: 0.48rem auto;
             background-position: 0.266rem center;
-            width: 1.066rem;
+            width: 2.066rem;
             height: 1.333rem;
             padding-left: 0.933rem;
             font-size: 0.373rem;
