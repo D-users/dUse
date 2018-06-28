@@ -1,6 +1,9 @@
 const webpack = require("webpack");
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8a329d420ce09512ceaba48c3709cb395403d91c
 module.exports = {
     devServer: {
         proxy: {
@@ -22,4 +25,8 @@ module.exports = {
             })
         ]
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 8a329d420ce09512ceaba48c3709cb395403d91c

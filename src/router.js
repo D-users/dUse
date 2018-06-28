@@ -46,7 +46,8 @@ export default new Router({
   routes: [
     {
       path: '/index',
-      name: 'index',
+
+      // name: 'index',
       component: Index,
       alias: "/",
       children:[
@@ -75,7 +76,7 @@ export default new Router({
     },
     {
       path: '/user',
-      name: 'user',
+      // name: 'user',
       component: User,
       children: [
         {path:"login",component:UserLogin},
