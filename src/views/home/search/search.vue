@@ -1,7 +1,7 @@
 <template>
     <div class="search-box">
         <div class="header-box">
-            <p class="back-btn">取消</p>
+            <p class="back-btn" @click="$router.go(-1)">取消</p>
             <div>
                 <input type="text" v-model="key">
             </div>
@@ -9,7 +9,7 @@
         </div>
         <div class="his-box">
             <div v-if="his">
-                <p class="his">历史记录</p>
+                <p class="his"><span>历史记录</span><span class="delete-all" @click="removeHis">清空全部历史记录</span></p>
                 <ul>
                     <li v-for="item in his"><router-link :to="{ name: 'detail', params: {key:item}}">{{item}}</router-link></li>
                 </ul>
@@ -35,7 +35,9 @@ export default {
         ...mapMutations(['setKeys','setStorage'])
     },
     created(){
-        this.his = this.keys.split(",")
+        if(this.keys){
+            this.his = this.keys.split(",")
+        }
     },
     methods: {
         getDetail(){
@@ -45,6 +47,12 @@ export default {
                 });
                 window.location.replace("/search/detail/"+this.key);
             }
+        },
+        removeHis(){
+            this.$store.commit('removeItem',{
+                keys: "删除"
+            })
+            this.his = null;
         }
     }
 }
@@ -102,10 +110,16 @@ export default {
             font-size: 0.4rem;
             padding: 0.2rem 0.4rem;
             background: white;
+            display: flex;
+            justify-content: space-between;
+            .delete-all{
+                color: red;
+            }
         }
         .no-his{
             font-size: 0.6rem;
             text-align: center;
+            margin-top: 0.6rem;
         }
     }
 }

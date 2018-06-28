@@ -4,7 +4,7 @@
             <a href="javascript: void(0)" @click="$router.go(-1)"><img src="../../assets/img/go.png" alt=""></a>
             <h1>我的订单</h1>
         </div>
-        <div class="tab">
+        <div class="tab" ref="tab">
             <span :class="getClass(-1)" @click="changeIndex(-1)">全部</span>
             <span :class="getClass(0)" @click="changeIndex(0)">待支付</span>
             <span :class="getClass(1)" @click="changeIndex(1)">待发货</span>
@@ -12,7 +12,7 @@
             <span :class="getClass(3)" @click="changeIndex(3)">待评价</span>
             <span :class="getClass(4)" @click="changeIndex(4)">退货</span>
         </div>
-        <div class="lists" v-if="getList" ref="list">
+        <div class="lists" ref="lists" v-show="getList">
             <ul>
                 <li class="goods-item" v-for="item in getList">
                     <div class="goods-num">
@@ -71,10 +71,14 @@
             })
         },
         mounted(){
-            console.log($('.lists'));
-            this.listScroll = new BScroll(this.$refs.list,{
-                click:true
+            console.log(this.$refs);
+            console.log(this.$refs.lists);
+            this.$nextTick(()=>{
+                this.listScroll = new BScroll(this.$refs.lists,{
+                    click:true
+                })
             })
+
         },
         computed: {
             ...mapState(['userId']),
@@ -193,7 +197,7 @@
     }
     .lists{
         position: absolute;
-        top: 1.86667rem;
+        top: 1.89333rem;
         bottom: 0;
         left: 0;
         width: 100%;
