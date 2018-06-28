@@ -1290,7 +1290,7 @@ Router.post("/address", function (req, res) {
             return;
         }
         addressStr = docs[0].address
-        console.log(addressStr)
+      //  console.log(addressStr)
         if (docs.length >= 1) {
             res.send({
                 status: 1,
@@ -1404,7 +1404,7 @@ Router.post("/orderChange", function (req, res) {
 
 
     var Detail =req.body.Detail
-    console.log(3)
+   // console.log(3)
     if (req.body.orderId) {
         console.log(1)
         //修改
