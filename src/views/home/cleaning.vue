@@ -1,6 +1,7 @@
 <template>
-    <div>
-        <div class="content">
+    <div class="outer-box" ref="box">
+        <div class="inner-box">
+            <div class="content">
             <div class="top">
                 <wc-swiper v-if="list.length" :autoplay="false" class="ttt">
                     <wc-slide v-for="(v, k) in imgList" :key="k" class="slide-slide">
@@ -37,10 +38,12 @@
                 </ul>
             </div>
         </div>
+        </div>
     </div>
 </template>
 
 <script>
+    import Bscroll from "better-scroll"
     export default {
         name: "cleaning",
         data () {
@@ -54,6 +57,9 @@
         },
         mounted () {
             this.fetchList();
+            this.menuScroll = new Bscroll(this.$refs.box,{
+                click: true
+            });
         },
         created(){
             this.$http.get("/api/goods/find3/护理").then(({data})=>{
@@ -94,12 +100,13 @@
         text-decoration: none;
         -webkit-tap-highlight-color: rgba(0,0,0,0);
     }
-    .content{
-        position: fixed;
-        top:2.41rem;
-        bottom: 1.227rem;
-        width:100%;
-        overflow: scroll;
+    .outer-box{
+        position: absolute;
+        top: 2.41rem;
+        left: 0;
+        bottom: 1.30667rem;
+        width: 100%;
+        overflow: hidden;
     }
     //////
     .slide-slide {

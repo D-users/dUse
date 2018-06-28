@@ -15,7 +15,7 @@
                 <li><a href="javascript: void(0)">筛选</a></li>
             </ul>
         </div>
-        <div class="wraper" ref="wrap" v-if="dataList">
+        <div class="wraper" ref="wrap" v-show="dataList">
             <ul>
                 <li class="item" v-for="item in dataList">
                     <a href="">
@@ -34,7 +34,7 @@
                 </li>
             </ul>
         </div>
-        <div class="footer" v-else>没有搜索结果~~~</div>
+        <div class="footer">没有搜索结果~~~</div>
     </div>
 </template>
 
@@ -103,11 +103,11 @@
             }
         },
         mounted() {
-            if(this.dataList){
+            // if(this.dataList){
                 this.menuScroll = new Bscroll(this.$refs.wrap,{
                     click: true
                 });
-            }
+            // }
         },
         methods:{
             getDetail(){

@@ -1,83 +1,85 @@
 <template>
-    <div>
-        <div class="content" v-if="goods.classProduct">
-            <div class="top">
-                <div class="container">
-                    <!--引入轮播图主键 开始-->
-                    <wc-swiper v-if="list.length" :autoplay="false" class="ttt">
-                        <wc-slide v-for="(v, k) in imgList" :key="k" class="slide-slide">
-                            <a href="javascript: void(0)" @click="showAlert('广告位,敬请期待!')">
-                                <img :src="v" alt="">
-                            </a>
-                        </wc-slide>
-                    </wc-swiper>
-                    <!--引入轮播图主键 开始-->
-                </div>
-            </div>
-            <div class="middle">
-                <div class="middle_top">
-                    <a href="/search/detail/精粹">
-                        <img src="http://7xlbbv.com2.z0.glb.qiniucdn.com/be8860bd55bd4548967b8336dff6c16e.jpg?imageView2/1/w/640/h/480/q/100" alt="">
-                    </a>
-                </div>
-                <div class="middle_middle">
-                    <ul>
-                        <li><a href="javascript: void(0)" @click="showAlert('暂无该功能,请期待我们的后续开发!')"><img src="./../../assets/images/download.png" alt=""></a></li>
-                        <li><a href="javascript: void(0)" @click="showAlert('暂无该功能,请期待我们的后续开发!')"><img src="./../../assets/images/download-1.png" alt=""></a></li>
-                        <li><a href="javascript: void(0)" @click="showAlert('暂无该功能,请期待我们的后续开发!')"><img src="./../../assets/images/download-2.png" alt=""></a></li>
-                        <li><a href="javascript: void(0)" @click="showAlert('暂无该功能,请期待我们的后续开发!')"><img src="./../../assets/images/download-3.png" alt=""></a></li>
-                        <li><a href="javascript: void(0)" @click="showAlert('暂无该功能,请期待我们的后续开发!')"><img src="./../../assets/images/download-4.png" alt=""></a></li>
-                    </ul>
-                </div>
-                <div class="middle_bottom">
-                    <img src="./../../assets/images/download-59.jpg" alt="">
-                    <div>
-                        <wc-swiper  v-if="list.length" :autoplay="false" :pagination="false" class="ttt">
-                            <wc-slide v-for="(item,index) in goods.newProduct.data" class="slide-slide">
-                                <template v-for="(v, k) in item">
-                                    <a :href="getHref(v.classId)">
-                                        <img  :src="v.detailImg[k].url" alt="">
-                                    </a>
-                                </template>
+    <div class="outer-box" ref="box">
+        <div class="inner-box">
+            <div class="content" v-if="goods.classProduct">
+                <div class="top">
+                    <div class="container">
+                        <!--引入轮播图主键 开始-->
+                        <wc-swiper v-if="list.length" :autoplay="false" class="ttt">
+                            <wc-slide v-for="(v, k) in imgList" :key="k" class="slide-slide">
+                                <a href="javascript: void(0)" @click="showAlert('广告位,敬请期待!')">
+                                    <img :src="v" alt="">
+                                </a>
                             </wc-slide>
                         </wc-swiper>
+                        <!--引入轮播图主键 开始-->
                     </div>
                 </div>
-
-            </div>
-            <div >
-                <template v-for="(v,k) in goods.classProduct.data">
-                    <div class="bottom">
-                        <div class="bottom-top">
-                            <a href="javascript: void(0)">
-                                <img src="./../../assets/images/download-23.jpg" alt="">
-                            </a>
+                <div class="middle">
+                    <div class="middle_top">
+                        <a href="/search/detail/精粹">
+                            <img src="http://7xlbbv.com2.z0.glb.qiniucdn.com/be8860bd55bd4548967b8336dff6c16e.jpg?imageView2/1/w/640/h/480/q/100" alt="">
+                        </a>
+                    </div>
+                    <div class="middle_middle">
+                        <ul>
+                            <li><a href="javascript: void(0)" @click="showAlert('暂无该功能,请期待我们的后续开发!')"><img src="./../../assets/images/download.png" alt=""></a></li>
+                            <li><a href="javascript: void(0)" @click="showAlert('暂无该功能,请期待我们的后续开发!')"><img src="./../../assets/images/download-1.png" alt=""></a></li>
+                            <li><a href="javascript: void(0)" @click="showAlert('暂无该功能,请期待我们的后续开发!')"><img src="./../../assets/images/download-2.png" alt=""></a></li>
+                            <li><a href="javascript: void(0)" @click="showAlert('暂无该功能,请期待我们的后续开发!')"><img src="./../../assets/images/download-3.png" alt=""></a></li>
+                            <li><a href="javascript: void(0)" @click="showAlert('暂无该功能,请期待我们的后续开发!')"><img src="./../../assets/images/download-4.png" alt=""></a></li>
+                        </ul>
+                    </div>
+                    <div class="middle_bottom">
+                        <img src="./../../assets/images/download-59.jpg" alt="">
+                        <div>
+                            <wc-swiper  v-if="list.length" :autoplay="false" :pagination="false" class="ttt">
+                                <wc-slide v-for="(item,index) in goods.newProduct.data" class="slide-slide">
+                                    <template v-for="(v, k) in item">
+                                        <a :href="getHref(v.classId)">
+                                            <img  :src="v.detailImg[k].url" alt="">
+                                        </a>
+                                    </template>
+                                </wc-slide>
+                            </wc-swiper>
                         </div>
-                        <div class="bmbb">
-                            <div class="bottom-middle">
+                    </div>
+
+                </div>
+                <div >
+                    <template v-for="(v,k) in goods.classProduct.data">
+                        <div class="bottom">
+                            <div class="bottom-top">
                                 <a href="javascript: void(0)">
-                                    <img width="100%" src="./../../assets/images/download-60.jpg" alt="">
+                                    <img src="./../../assets/images/download-23.jpg" alt="">
                                 </a>
                             </div>
-                            <div class="bottom-bottom">
-                                <div v-for="(item,index) in v.con">
-                                    <router-link :to="{ name: 'goods', params: {goodsId:item.classId}}">
-                                        <img width="100%" :src="item.titleImg[0].url" alt="">
-                                    </router-link>
+                            <div class="bmbb">
+                                <div class="bottom-middle">
+                                    <a href="javascript: void(0)">
+                                        <img width="100%" src="./../../assets/images/download-60.jpg" alt="">
+                                    </a>
+                                </div>
+                                <div class="bottom-bottom">
+                                    <div v-for="(item,index) in v.con">
+                                        <router-link :to="{ name: 'goods', params: {goodsId:item.classId}}">
+                                            <img width="100%" :src="item.titleImg[0].url" alt="">
+                                        </router-link>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </template>
+                    </template>
+                </div>
+
             </div>
-
         </div>
-
     </div>
 </template>
 
 <script>
     import axios from "axios"
+    import Bscroll from "better-scroll"
     export default {
         name: "home",
         data () {
@@ -102,6 +104,9 @@
         },
         mounted () {
             this.fetchList();
+            this.menuScroll = new Bscroll(this.$refs.box,{
+                click: true
+            });
         },
         methods: {
             fetchList () {
@@ -130,14 +135,21 @@
         text-decoration: none;
         -webkit-tap-highlight-color: rgba(0,0,0,0);
     }
-
-    .content{
-        position: fixed;
-        top:2.41rem;
-        bottom: 1.227rem;
-        width:100%;
-        overflow: scroll;
+    .outer-box{
+        position: absolute;
+        top: 2.41rem;
+        left: 0;
+        bottom: 1.30667rem;
+        width: 100%;
+        overflow: hidden;
     }
+    /*.content{*/
+        /*position: fixed;*/
+        /*top:2.41rem;*/
+        /*bottom: 1.227rem;*/
+        /*width:100%;*/
+        /*overflow: scroll;*/
+    /*}*/
     /////////轮播图样式开始
     .slide-slide {
         height: 100%;
