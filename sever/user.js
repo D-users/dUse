@@ -1391,6 +1391,10 @@ Router.post("/addressRemove", function (req, res) {
 Router.post("/orderChange", function (req, res) {
 //[{classId: 3011, count: 5}, {classId: 8011, count: 6}]
 
+  var  Detail= JSON.parse(req.body.Detail)
+   // JSON.stringify()
+
+console.log(Detail,"123132132")
 
        if(req.body.orderId||!req.body.state||!req.body.Detail||!req.body.totalMoney||!req.body.orderAddressId){
            res.send({
@@ -1403,7 +1407,7 @@ Router.post("/orderChange", function (req, res) {
 
 
 
-    var Detail =req.body.Detail
+
    // console.log(3)
     if (req.body.orderId) {
         console.log(1)

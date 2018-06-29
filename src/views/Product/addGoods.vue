@@ -9,7 +9,8 @@
     name: "manage",
        methods:{
         add(){
-            let date = [{name:1,class:"5456"},{name:1,class:"5456"}];
+            let date = JSON.stringify([{name:1,class:"5456"},{name:1,class:"5456"}])
+
             this.$http.post('/api/goods/addcy',{
                 data: date
             }).then(({data}) => {

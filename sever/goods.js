@@ -395,32 +395,44 @@ Router.get("/index", function (req, res) {
             data: [
                 {
                     "title": "彩妆护肤",
+                    "titleSlog":"让爱不衰老",
+                    "titleImg":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530246470177&di=4aff97d1141ff6f070ce639da3cfd4d2&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01119e57c513c90000012e7ea5aef4.jpg%402o.jpg",
                     classId: 1,
                     "con": []
                 },
                 {
                     "title": "身体护理",
+                    "titleSlog":"精致生活",
+                    "titleImg":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530246587473&di=d3691e6a67aad49e97ebce425b91982a&imgtype=0&src=http%3A%2F%2Fimages.xiustatic.com%2Fcms%2Fnoregular%2F2015%2F12%2F18%2F71e97813-55bb-475b-9812-51a012c726ff.jpg",
                     classId: 2,
                     "con": []
                 },
                 {
                     "title": "内衣配饰",
+                    "titleSlog":"贴身呵护",
                     classId: 3,
+                    "titleImg":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530246657959&di=26b35b12f51e0fe8ac6cd0f8bbb6c9f6&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F010c2155e169eb32f875a132d9453b.jpg",
                     "con": []
                 },
                 {
                     "title": "潮流服饰",
+                    "titleSlog":"追赶潮流",
                     classId: 4,
+                    "titleImg":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530246736221&di=a1badc036e854d004f265fb5c713861e&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01523e5588ecd4000000b18fbfa543.jpg",
                     "con": []
                 },
                 {
                     "title": "品牌鞋包",
+                    "titleSlog":"大牌鞋包等着你",
                     classId: 5,
+                    "titleImg":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530246851458&di=4446c72210d89538b7c6418bb5bd2013&imgtype=0&src=http%3A%2F%2Fimg5.cache.netease.com%2Fphoto%2F0026%2F2013-09-02%2F97PACGGB43AJ0026.jpg",
                     "con": []
                 },
                 {
                     "title": "家具家电",
+                    "titleSlog":"爱家爱生活",
                     classId: 6,
+                    "titleImg":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530247035977&di=128b738bf2fdcdca085bc091c3d1a4b3&imgtype=0&src=http%3A%2F%2Fpic.90sjimg.com%2Fdesign%2F00%2F01%2F12%2F66%2Fs_1024_5512636dec9be.jpg",
                     "con": []
                 },
             ]
@@ -465,7 +477,7 @@ Router.get("/index", function (req, res) {
 
                          dataOut.classProduct.data[3].con=docs4
 ////////
-                         Model.find({"id": {$regex: ( 50 + "")}}, {}, {
+                         Model.find({"id": {$regex: ( 5 + "")}}, {}, {
                              limit: 6,
                              sort: {sold: 1}
                          }, function (err, docs5) {
