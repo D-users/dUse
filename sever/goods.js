@@ -425,7 +425,7 @@ Router.get("/index", function (req, res) {
                     "title": "品牌鞋包",
                     "titleSlog":"大牌鞋包等着你",
                     classId: 5,
-                    "titleImg":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530246851458&di=4446c72210d89538b7c6418bb5bd2013&imgtype=0&src=http%3A%2F%2Fimg5.cache.netease.com%2Fphoto%2F0026%2F2013-09-02%2F97PACGGB43AJ0026.jpg",
+                    "titleImg":"https://img.alicdn.com/tps/TB1g4o.PXXXXXa4XXXXXXXXXXXX-1002-380.jpg",
                     "con": []
                 },
                 {
