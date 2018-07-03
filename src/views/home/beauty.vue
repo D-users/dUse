@@ -6,7 +6,7 @@
                 <!--引入轮播图组件-->
                 <wc-swiper v-if="list.length" :autoplay="false" class="ttt">
                     <wc-slide v-for="(v, k) in imgList" :key="k" class="slide-slide">
-                        <a href="">
+                        <a href="javascript: void(0)">
                             <img :src="v" alt="">
                         </a>
                     </wc-slide>
@@ -14,13 +14,13 @@
             </div>
             <div class="middle">
                 <ul class="middle_top">
-                    <li><a href=""><img src="./../../assets/images/download-67.jpg" alt=""></a></li>
-                    <li><a href=""><img src="./../../assets/images/download-73.jpg" alt=""></a></li>
+                    <li><a href="javascript: void(0)"><img src="./../../assets/images/download-67.jpg" alt=""></a></li>
+                    <li><a href="javascript: void(0)"><img src="./../../assets/images/download-73.jpg" alt=""></a></li>
                 </ul>
                 <ul class="middle_bottom">
-                    <li><a href=""><img src="./../../assets/images/download-70.jpg" alt=""></a></li>
-                    <li><a href=""><img src="./../../assets/images/download-71.jpg" alt=""></a></li>
-                    <li><a href=""><img src="./../../assets/images/download-68.jpg" alt=""></a></li>
+                    <li><a href="javascript: void(0)"><img src="./../../assets/images/download-70.jpg" alt=""></a></li>
+                    <li><a href="javascript: void(0)"><img src="./../../assets/images/download-71.jpg" alt=""></a></li>
+                    <li><a href="javascript: void(0)"><img src="./../../assets/images/download-68.jpg" alt=""></a></li>
                 </ul>
             </div>
             <div class="bottom">

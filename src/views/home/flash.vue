@@ -4,7 +4,7 @@
             <div class="top">
                 <wc-swiper v-if="list.length" :autoplay="false" class="ttt">
                     <wc-slide v-for="(v, k) in imgList" :key="k" class="slide-slide">
-                        <a href="">
+                        <a href="javascript: void(0)">
                             <img :src="v" alt="">
                         </a>
                     </wc-slide>
@@ -13,17 +13,17 @@
             <div class="middle">
                 <ul>
                     <li>
-                        <a href="">
+                        <a href="javascript: void(0)">
                             <img src="http://7xlbbv.com2.z0.glb.qiniucdn.com/9c39a1dd3f814774bdb64e1ff52d4f45.jpg?imageView2/1/w/640/h/480/q/100" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="javascript: void(0)">
                             <img src="http://7xlbbv.com2.z0.glb.qiniucdn.com/259f37a2b90547149680b02e443a4cd8.jpg?imageView2/1/w/640/h/480/q/100" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="javascript: void(0)">
                             <img src="http://7xlbbv.com2.z0.glb.qiniucdn.com/18aca9ae1dcd49109e5c3333c4efb292.jpg?imageView2/1/w/640/h/480/q/100" alt="">
                         </a>
                     </li>

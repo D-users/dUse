@@ -229,7 +229,7 @@
         width: 100%;
         background: rgb(240,240,240);
         overflow: hidden;
-            li{
+            li.item{
                 display: flex;
                 border: 1px solid gainsboro;
                 background: white;

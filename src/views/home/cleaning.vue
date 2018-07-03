@@ -5,7 +5,7 @@
             <div class="top">
                 <wc-swiper v-if="list.length" :autoplay="false" class="ttt">
                     <wc-slide v-for="(v, k) in imgList" :key="k" class="slide-slide">
-                        <a href="">
+                        <a href="javascript: void(0)">
                             <img :src="v" alt="">
                         </a>
                     </wc-slide>
@@ -13,13 +13,13 @@
             </div>
             <div class="middle">
                 <ul class="middle_top">
-                    <li><a href=""><img src="./../../assets/images/download-89.jpg" alt=""></a></li>
-                    <li><a href=""><img src="./../../assets/images/download-90.jpg" alt=""></a></li>
+                    <li><a href="javascript: void(0)"><img src="./../../assets/images/download-89.jpg" alt=""></a></li>
+                    <li><a href="javascript: void(0)"><img src="./../../assets/images/download-90.jpg" alt=""></a></li>
                 </ul>
                 <ul class="middle_bottom">
-                    <li><a href=""><img src="./../../assets/images/download-91.jpg" alt=""></a></li>
-                    <li><a href=""><img src="./../../assets/images/download-92.jpg" alt=""></a></li>
-                    <li><a href=""><img src="./../../assets/images/download-93.jpg" alt=""></a></li>
+                    <li><a href="javascript: void(0)"><img src="./../../assets/images/download-91.jpg" alt=""></a></li>
+                    <li><a href="javascript: void(0)"><img src="./../../assets/images/download-92.jpg" alt=""></a></li>
+                    <li><a href="javascript: void(0)"><img src="./../../assets/images/download-93.jpg" alt=""></a></li>
                 </ul>
             </div>
             <div class="bottom">

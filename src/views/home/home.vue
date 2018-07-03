@@ -44,21 +44,19 @@
                             </wc-swiper>
                         </div>
                     </div>
-
                 </div>
                 <div >
                     <template v-for="(v,k) in goods.classProduct.data">
                         <div class="bottom">
                             <div class="bottom-top">
                                 <a href="javascript: void(0)">
-                                    <img src="./../../assets/images/download-23.jpg" alt="">
+                                    <img style="height: 3.6rem" :src="v.titleImg" alt="">
                                 </a>
                             </div>
                             <div class="bmbb">
                                 <div class="bottom-middle">
-                                    <a href="javascript: void(0)">
-                                        <img width="100%" src="./../../assets/images/download-60.jpg" alt="">
-                                    </a>
+                                    <p><img src="../../assets/img/ProductClassify/lipstick.png" alt="">{{v.title}}</p>
+                                    <a href="javascript: void(0)">{{v.titleSlog}}<img src="../../assets/img/user/go-right.png" alt=""></a>
                                 </div>
                                 <div class="bottom-bottom">
                                     <div v-for="(item,index) in v.con">
@@ -88,7 +86,7 @@
                 count : 0,
                 show : false,
                 list: [],
-                imgList: ["http://7xlbbv.com2.z0.glb.qiniucdn.com/e9bf73a5421245ec93ee804259609268.jpg?imageView2/1/w/750/h/307/q/100","http://7xlbbv.com2.z0.glb.qiniucdn.com/2b1a08ce91ef4c8a9828cb1704722f58.jpg?imageView2/1/w/750/h/307/q/100","http://7xlbbv.com2.z0.glb.qiniucdn.com/ec7b9bcb97ce42eeb786fd868926ade6.jpg?imageView2/1/w/750/h/307/q/100","http://7xlbbv.com2.z0.glb.qiniucdn.com/f3aece965fec4a11b9de2e6ec91d1672.jpg?imageView2/1/w/750/h/307/q/100","http://7xlbbv.com2.z0.glb.qiniucdn.com/da1e47654c6d49549c3cbd2a606114fb.jpg?imageView2/1/w/750/h/307/q/100","http://7xlbbv.com2.z0.glb.qiniucdn.com/9cf8410b73d54a0e9ef81e122afeefee.jpg?imageView2/1/w/750/h/307/q/100"],
+                imgList: ["http://7xlbbv.com2.z0.glb.qiniucdn.com/e9bf73a5421245ec93ee804259609268.jpg?imageView2/1/w/750/h/307/q/100","http://7xlbbv.com2.z0.glb.qiniucdn.com/2b1a08ce91ef4c8a9828cb1704722f58.jpg?imageView2/1/w/750/h/307/q/100","http://7xlbbv.com2.z0.glb.qiniucdn.com/ec7b9bcb97ce42eeb786fd868926ade6.jpg?imageView2/1/w/750/h/307/q/100","http://7xlbbv.com2.z0.glb.qiniucdn.com/f3aece965fec4a11b9de2e6ec91d1672.jpg?imageView2/1/w/750/h/307/q/100","http://7xlbbv.com2.z0.glb.qiniucdn.com/da1e47654c6d49549c3cbd2a606114fb.jpg?imageView2/1/w/750/h/307/q/100","http://7xlbbv.com2.z0.glb.qiniucdn.com/9cf8410b73d54a0e9ef81e122afeefee.jpg?imageView2/1/w/750/h/307/q/100"]
             }
         },
         created () {
@@ -167,7 +165,7 @@
     .ttt {
         height: 100%;
         display: flex;
-        justify-content: space-around;
+        justify-content: space-around
     }
     ////////轮播图样式结束
     .middle_top{
@@ -218,11 +216,59 @@
         margin-top: 0.267rem;
         width: 100%;
     }
+    .bottom{
+        &::after{
+            content: '';
+            display: block;
+            clear: both;
+            overflow: hidden;
+            font-size: 0;
+            height: 0;
+        }
+    }
     .bmbb{
         margin-top: 0.213rem;
         float: left;
         overflow: hidden;
         background-color: #f0f2f5;
+        .bottom-middle{
+            height: 1rem;
+            line-height: 1rem;
+            color: #ff5357;
+            position: relative;
+            background: white;
+            p{
+                color: #ff5357;
+                text-align: center;
+                font-size: 0.4rem;
+                img{
+                    width: 0.6rem;
+                    height: 0.6rem;
+                    position: relative;
+                    top: 0.1rem;
+                    left: -0.2rem;
+                }
+            }
+            a{
+                position: absolute;
+                display: block;
+                right: -0.4rem;
+                top: 50%;
+                height: 0.8rem;
+                margin-top: -0.4rem;
+                color: #aeaeae;
+                font-size: 0.53333rem;
+                transform: scale(0.5);
+                padding-right: 0.8rem;
+                img{
+                    height: 0.53333rem;
+                    position: absolute;
+                    top: 50%;
+                    margin-top: -0.2rem;
+                    right: 0;
+                }
+            }
+        }
     }
     .bmbb .bottom-bottom{
         display: flex;
@@ -234,7 +280,8 @@
         border-right: 0.027rem solid rgb(239,240,241);
         border-top: 0.027rem  solid rgb(239,240,241);
         position: relative;
-        top: -0.08rem;}
+        top: -0.08rem;
+    }
     .bmbb .bottom-bottom>div>a>img{
         border: 0;
         vertical-align: bottom;

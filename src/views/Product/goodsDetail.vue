@@ -8,24 +8,24 @@
                 </wc-slide>
             </wc-swiper>
         </div>
-        <div class="sp-info">
+        <div class="sp-info" v-if="goodInfo.style">
             <h1><p>{{goodInfo.title}}</p> <img src="../../assets/img/psale-icon.png" alt=""></h1>
             <div class="price-info">
-                <p><span class="unit-price">{{this.priceInfo.pirce}}</span> <span class="unit-point">+20.00积分</span></p>
+                <p><span class="unit-price">{{goodInfo.style[0].pirce}}</span> <span class="unit-point">+{{goodInfo.style[0].hanPirce}}积分</span></p>
                 <span class="collect" @touchstart="addCollect">{{getText}}</span>
             </div>
             <div class="other-info">
-                <p>库存：<span>{{this.priceInfo.count}}</span></p>
-                <p>专柜价：<del>￥<span>{{this.priceInfo.countersPirce}}</span></del></p>
-                <p>已售：<span>{{this.goodInfo.sold}}</span>件</p>
+                <p>库存：<span>{{goodInfo.style[0].count}}</span></p>
+                <p>专柜价：<del>￥<span>{{goodInfo.style[0].countersPirce}}</span></del></p>
+                <p>已售：<span>{{goodInfo.sold}}</span>件</p>
             </div>
         </div>
         <div class="sp-ensure">
             <p><span>温馨提示</span>当您遇到喜欢的商品，却积分不足时，可以用纯现金支付喔!</p>
             <p>
-                <a href="###">100%正品</a>
-                <a href="###">速度保障</a>
-                <a href="###">售后保障</a>
+                <a href="javascript: void(0)">100%正品</a>
+                <a href="javascript: void(0)">速度保障</a>
+                <a href="javascript: void(0)">售后保障</a>
             </p>
         </div>
         <p class="connect-line"></p>
@@ -126,14 +126,8 @@
                 },
                 currentSlide:100,
                 imgList: [],
-                priceInfo:{
-                    count:'88',
-                    countersPirce:'1040',
-                    hanPirce:'260',
-                    pirce:'520'
-                },
                 goodPic:{
-                    url:"https://img.alicdn.com/imgextra/i1/929347050/TB2laJbkjihSKJjy0FlXXadEXXa_!!929347050.jpg_430x430q90.jpg",
+                    url:"",
                 }
             }
         },
@@ -156,8 +150,8 @@
                 this.goodInfo = data.data[0];
                 this.imgList = data.data[0].titleImg;
                 this.comLength = data.data[0].comments.length;
+                this.goodPic = this.goodInfo.titleImg[this.index];
                 console.log(this.goodInfo);
-                console.log(this.imgList);
             }).catch((err) => {
                 console.error(err);
             });
@@ -284,6 +278,7 @@
         color: rgb(116,119,116);
         width: 100%;
         overflow-x: hidden;
+        margin-bottom: 1.2rem;
         a {
             text-decoration: none;
         }
@@ -327,8 +322,6 @@
             h1 {
                 font-size: 0.3733rem;
                 font-weight: bold;
-                padding-top: 0.2667rem;
-                padding-bottom: 0.32rem;
                 background-color: white;
                 height: 0.8rem;
                 line-height: 0.8rem;
