@@ -6,12 +6,12 @@
             <a href="javascript:void (0)" v-show="editShow" @click="edit">编辑</a>
             <a href="javascript:void (0)" v-show="compShow" @click="complete">完成</a>
         </div>
-        <div class="tips">
+        <div class="tips" v-if="cartInfo.length == 0">
             <p>小主，您的购物车还是空的！</p>
             <p>去<span>首页</span>逛逛吧!</p>
         </div>
 
-        <div style="margin:0.26667rem 0 1.3333rem">
+        <div style="margin:0.26667rem 0 1.3333rem" v-else>
             <div v-for="(good,index) in this.cartInfo">
                 <div class="shop-list">
                     <ul>
@@ -45,7 +45,6 @@
                         </li>
                     </ul>
                 </div>
-
                 <div class="cart-footer">
                     <!--加on类名代表选中-->
                     <a href="javascript:void(0)" @touchstart="allShow" :class="isAllShow?'all-btn on':'all-btn'">全选</a>
@@ -62,7 +61,7 @@
 </template>
 
 <script>
-    import {mapMutations} from "vuex"
+    import {mapMutations,mapState} from "vuex"
     export default {
         name: "cart",
         data() {
@@ -78,7 +77,7 @@
         },
         created() {
             let formData = this.$qs.stringify({
-                userId: '5b2a5f5c9a29fa125c295b12'
+                userId: this.userId
             });
             this.$http.post("/api/get/cart", formData, {header: {contentType: 'application/json'}}).then(({data}) => {
                 this.cartInfo = data.data;
@@ -157,11 +156,15 @@
                             this.goodsArr.push(this.cartInfo[i]);
                         }
                     }
-                    var str = JSON.stringify(this.goodsArr);
-                    this.$store.commit("setStorage",{
-                        cart: str
-                    });
-                    window.location.replace("/user/confirmOrder");
+                    if(this.goodsArr.length){
+                        var str = JSON.stringify(this.goodsArr);
+                        this.$store.commit("setStorage",{
+                            cart: str
+                        });
+                        window.location.replace("/user/confirmOrder");
+                    }else{
+                        alert("请先选择商品!");
+                    }
                 }else {
                     return false;
                 }
@@ -169,6 +172,7 @@
         },
         computed: {
             ...mapMutations(['setStorage']),
+            ...mapState(['userId']),
             price() {
                 var count = 0;
                 for (var i = 0; i < this.cartInfo.length; i++) {
@@ -219,7 +223,6 @@
     }
 
     .tips {
-        display: none;
         text-align: center;
         color: #999;
         font-size: 0.32rem;

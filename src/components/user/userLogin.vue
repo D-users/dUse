@@ -6,7 +6,7 @@
                 <li><p>用户</p><input class="txt" type="text" placeholder="请输入手机号或用户名" v-model="user" value=""></li>
                 <li><p>密码</p><input class="txt" type="password" placeholder="请输入密码" v-model="pwd" value=""></li>
                 <li><input type="button" value="登录" class="login-btn" @click="login"></li>
-                <li><a href="/user/register">注册</a><a href="">忘记密码</a></li>
+                <li><a href="/user/register">注册</a><a href="/">前往首页</a></li>
             </ul>
         </div>
     </div>
@@ -23,10 +23,9 @@
           }
         },
         computed: {
-
+            ...mapMutations(['setStorage'])
         },
         methods: {
-            ...mapMutations(['setStorage']),
             login(){
                 let formData = this.$qs.stringify({
                     userName: this.user,

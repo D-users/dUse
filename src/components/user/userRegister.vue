@@ -42,15 +42,20 @@
         methods: {
             register(){
                 let postData = this.$qs.stringify({
-                    userId: this.user,
+                    userName: this.user,
                     pwd: this.pwd
                 });
                 this.$http({
                     method: 'post',
-                    url: "/api/user/add",
+                    url: "/api/user/regist",
                     data: postData
-                }).then((res)=>{
-                    console.log(res);
+                }).then(({data})=>{
+                    alert(data.msg);
+                    if(data.status){
+                        window.location.replace("/user/login");
+                    }else{
+                        window.location.replace("/");
+                    }
                 })
             }
         }

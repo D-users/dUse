@@ -5,7 +5,7 @@
             <div class="top">
                 <wc-swiper v-if="list.length" :autoplay="false" class="ttt">
                     <wc-slide v-for="(v, k) in imgList" :key="k" class="slide-slide">
-                        <a href="">
+                        <a href="javascript: void(0)">
                             <img :src="v" alt="">
                         </a>
                     </wc-slide>
@@ -13,13 +13,13 @@
             </div>
             <div class="middle">
                 <ul class="middle_top">
-                    <li><a href=""><img src="./../../assets/images/download-74.jpg" alt=""></a></li>
-                    <li><a href=""><img src="./../../assets/images/download-76.jpg" alt=""></a></li>
+                    <li><a href="javascript: void(0)"><img src="./../../assets/images/download-74.jpg" alt=""></a></li>
+                    <li><a href="javascript: void(0)"><img src="./../../assets/images/download-76.jpg" alt=""></a></li>
                 </ul>
                 <ul class="middle_bottom">
-                    <li><a href=""><img src="./../../assets/images/download-77.jpg" alt=""></a></li>
-                    <li><a href=""><img src="./../../assets/images/download-78.jpg" alt=""></a></li>
-                    <li><a href=""><img src="./../../assets/images/download-79.jpg" alt=""></a></li>
+                    <li><a href="javascript: void(0)"><img src="./../../assets/images/download-77.jpg" alt=""></a></li>
+                    <li><a href="javascript: void(0)"><img src="./../../assets/images/download-78.jpg" alt=""></a></li>
+                    <li><a href="javascript: void(0)"><img src="./../../assets/images/download-79.jpg" alt=""></a></li>
                 </ul>
             </div>
             <div class="bottom">
@@ -32,7 +32,7 @@
                             <img :src="item.titleImg[0].url" alt="">
                             <span class="name">{{item.title}}</span>
                             <span class="prices">￥<span>{{getZ(item.style[0].pirce)}}</span><span>{{getX(item.style[0].pirce)}}</span>+<span>{{Math.round(item.style[0].hanPirce)}}积分</span></span>
-                            <span class="people_buy">{{item.sold}}</span>
+                            <span class="people_buy">{{item.sold}}人购买</span>
                         </a>
                     </li>
                 </ul>

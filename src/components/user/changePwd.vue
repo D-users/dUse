@@ -1,13 +1,19 @@
 <template>
     <div>
-        <user-header msg="修改昵称"></user-header>
+        <user-header :msg="修改密码"></user-header>
         <div class="content-box">
             <div class="text-box">
-                <p>昵称: </p>
-                <input type="text" v-model="nick" placeholder="请输入昵称">
+                <p>用户名: </p>
+                <input type="text" v-model="userName" placeholder="请输入原密码">
+                <p>原密码: </p>
+                <input type="text" v-model="pwd1" placeholder="请输入原密码">
+                <p>新密码: </p>
+                <input type="password" v-model="pwd2" placeholder="请输入新密码(首位英文字母,6~15位)">
+                <p>确认密码: </p>
+                <input type="password" v-model="pwd3" placeholder="注意与之前相同">
             </div>
             <div class="btn-box">
-                <button class="change-btn" @click="changeNick">确认修改</button>
+                <button class="change-btn" @click="changePwd">确认修改</button>
             </div>
         </div>
     </div>
@@ -15,41 +21,39 @@
 
 <script>
     import UserHeader from "./common/userHeader"
-    import {mapState,mapMutations} from "vuex";
+    import {mapState} from "vuex"
     export default {
-        name: "setNickname",
+        name: "changePwd",
         components: {
             UserHeader
         },
         data(){
             return {
-                nick: ""
+                userName: null,
+                pwd1: null,
+                pwd2: null,
+                pwd3: null
             }
         },
         computed: {
-            ...mapState(['nickname','userId'])
-        },
-        created(){
-            this.nick = this.nickname;
+            ...mapState(['userId'])
         },
         methods: {
-            changeNick(){
-                let formData = this.$qs.stringify({
-                    userId: this.userId,
-                    phoneNumber: this.nick
-                });
-                this.$http({
-                    method: 'post',
-                    url: "/api/user/phoneUpdate",
-                    data: formData
-                }).then(({data})=>{
-                    if(data.status){
-                        this.$store.commit('setStorage',{nickname:this.nick});
-                        alert("修改成功!");
-                    }else{
-                        alert("修改失败!");
-                    }
-                })
+            changePwd(){
+                if(this.pwd2 != this.pwd3){
+                    alert("两次密码输入不一致")
+                }else{
+                    let formData = this.$qs.stringify({
+                        userName: this.userName,
+                        pwd: this.pwd1,
+                        pwdNew: this.pwd2
+                    });
+                    this.$http.post("/api/user/change2",formData).then(({data}) => {
+                        if(data.status){
+                            alert("修改成功!")
+                        }
+                    });
+                }
             }
         }
     }
